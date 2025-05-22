@@ -1,6 +1,6 @@
 name: colored_logger
 description: "A Flutter package for colored terminal logs (VS Code, Android Studio, IntelliJ) with Ansi escape codes."
-version: 0.0.1
+version: 0.0.2
 homepage: https://www.venhdev.me
 repository: https://github.com/venhdev/colored_logger
 
