@@ -1,5 +1,5 @@
 name: colored_logger
-description: "A new Flutter package project."
+description: "A Flutter package project for simple colored logging utility."
 version: 0.0.1
 homepage: https://www.venhdev.me
 repository: https://github.com/venhdev/colored_logger
