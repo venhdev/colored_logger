@@ -91,7 +91,9 @@ class ColoredLogger {
     List<String>? ansiCode,
   }) {
     final String? flattenAnsiCode_ = ansiCode?.join('');
-    final String ansiColorDecoded = flattenAnsiCode_ ?? AnsiCode.getColorByCode(colorCode) ?? AnsiCode.normal;
+    final String ansiColorDecoded = flattenAnsiCode_ ??
+        AnsiCode.getColorByCode(colorCode) ??
+        AnsiCode.normal;
     print('$ansiColorDecoded$prefix$message${AnsiCode.reset}');
   }
 }

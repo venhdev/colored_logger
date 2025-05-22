@@ -9,10 +9,12 @@ void main() {
   ColoredLogger.error('An error occurred');
 
   // Custom colored message with a specific color code
-  ColoredLogger.custom('Custom message with color code', colorCode: 'magenta', prefix: '[CUSTOM] ');
+  ColoredLogger.custom('Custom message with color code',
+      colorCode: 'magenta', prefix: '[CUSTOM] ');
 
   // Custom colored message with ANSI codes
-  ColoredLogger.custom('Custom message with ANSI codes', ansiCode: [AnsiCode.bold, AnsiCode.cyan], prefix: '[STYLED] ');
+  ColoredLogger.custom('Custom message with ANSI codes',
+      ansiCode: [AnsiCode.bold, AnsiCode.cyan], prefix: '[STYLED] ');
 
   // Using different text styles
   ColoredLogger.custom('Bold text', ansiCode: [AnsiCode.bold]);
@@ -20,5 +22,6 @@ void main() {
   ColoredLogger.custom('Underlined text', ansiCode: [AnsiCode.underline]);
 
   // Using background colors
-  ColoredLogger.custom('Text with background', ansiCode: [AnsiCode.black, AnsiCode.bgYellow]);
+  ColoredLogger.custom('Text with background',
+      ansiCode: [AnsiCode.black, AnsiCode.bgYellow]);
 }
