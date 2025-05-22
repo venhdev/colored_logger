@@ -1,11 +1,12 @@
 name: colored_logger
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
+homepage: https://www.venhdev.me
+repository: https://github.com/venhdev/colored_logger
 
 environment:
-  sdk: ^3.7.2
-  flutter: ">=1.17.0"
+  sdk: '>=2.17.0 <4.0.0'
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
@@ -14,7 +15,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
