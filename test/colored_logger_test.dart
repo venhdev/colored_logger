@@ -1,5 +1,6 @@
 import 'package:colored_logger/ansi_code.dart';
 import 'package:colored_logger/colored_logger.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -78,6 +79,23 @@ void main() {
         ],
         prefix: '[BRIGHT] ',
       );
+    });
+  });
+
+  /// Print Long String
+  void printLongString(String text) {
+    final RegExp pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
+    pattern
+        .allMatches(text)
+        .forEach((RegExpMatch match) => print(match.group(0)));
+  }
+
+  group('long print', () {
+    test('long print', () {
+      final String longString = 'A' * 100000; // 10,000 'A's
+      print('$longString--print-end');
+      debugPrint('$longString--debugPrint-end');
+      // printLongString('$longString--printLongString-end');
     });
   });
 }

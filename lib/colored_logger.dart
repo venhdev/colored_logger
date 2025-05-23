@@ -1,4 +1,5 @@
 import 'package:colored_logger/ansi_code.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 
 /// A simple yet powerful colored logging utility for Dart and Flutter applications.
 ///
@@ -94,6 +95,6 @@ class ColoredLogger {
     final String ansiColorDecoded = flattenAnsiCode_ ??
         AnsiCode.getColorByCode(colorCode) ??
         AnsiCode.normal;
-    print('$ansiColorDecoded$prefix$message${AnsiCode.reset}');
+    debugPrint('$ansiColorDecoded$prefix$message${AnsiCode.reset}');
   }
 }
