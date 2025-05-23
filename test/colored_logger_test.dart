@@ -22,20 +22,26 @@ void main() {
     });
 
     test('multi lines', () {
-      ColoredLogger.custom('Line 1\nLine 2\nLine 3', prefix: '[DEBUG] ', colorCode: 'green');
+      ColoredLogger.custom('Line 1\nLine 2\nLine 3',
+          prefix: '[DEBUG] ', colorCode: 'green');
     });
   });
 
   group('Custom Logging with Color Codes', () {
     test('normal color code', () {
-      ColoredLogger.custom('Test normal message', colorCode: 'normal', prefix: '[NORMAL] ');
+      ColoredLogger.custom('Test normal message',
+          colorCode: 'normal', prefix: '[NORMAL] ');
     });
 
     test('custom color codes', () {
-      ColoredLogger.custom('Test blue message', colorCode: 'blue', prefix: '[BLUE] ');
-      ColoredLogger.custom('Test red message', colorCode: 'red', prefix: '[RED] ');
-      ColoredLogger.custom('Test green message', colorCode: 'green', prefix: '[GREEN] ');
-      ColoredLogger.custom('Test yellow message', colorCode: 'yellow', prefix: '[YELLOW] ');
+      ColoredLogger.custom('Test blue message',
+          colorCode: 'blue', prefix: '[BLUE] ');
+      ColoredLogger.custom('Test red message',
+          colorCode: 'red', prefix: '[RED] ');
+      ColoredLogger.custom('Test green message',
+          colorCode: 'green', prefix: '[GREEN] ');
+      ColoredLogger.custom('Test yellow message',
+          colorCode: 'yellow', prefix: '[YELLOW] ');
     });
 
     test('long string', () {
@@ -46,15 +52,21 @@ void main() {
 
   group('Custom Logging with ANSI Codes', () {
     test('single ANSI code', () {
-      ColoredLogger.custom('Test bold text', ansiCode: [AnsiCode.bold], prefix: '[BOLD] ');
-      ColoredLogger.custom('Test dim text', ansiCode: [AnsiCode.dim], prefix: '[DIM] ');
-      ColoredLogger.custom('Test underline text', ansiCode: [AnsiCode.underline], prefix: '[UNDERLINE] ');
+      ColoredLogger.custom('Test bold text',
+          ansiCode: [AnsiCode.bold], prefix: '[BOLD] ');
+      ColoredLogger.custom('Test dim text',
+          ansiCode: [AnsiCode.dim], prefix: '[DIM] ');
+      ColoredLogger.custom('Test underline text',
+          ansiCode: [AnsiCode.underline], prefix: '[UNDERLINE] ');
     });
 
     test('background colors', () {
-      ColoredLogger.custom('Test bg red', ansiCode: [AnsiCode.bgRed], prefix: '[BG_RED] ');
-      ColoredLogger.custom('Test bg blue', ansiCode: [AnsiCode.bgBlue], prefix: '[BG_BLUE] ');
-      ColoredLogger.custom('Test bg green', ansiCode: [AnsiCode.bgGreen], prefix: '[BG_GREEN] ');
+      ColoredLogger.custom('Test bg red',
+          ansiCode: [AnsiCode.bgRed], prefix: '[BG_RED] ');
+      ColoredLogger.custom('Test bg blue',
+          ansiCode: [AnsiCode.bgBlue], prefix: '[BG_BLUE] ');
+      ColoredLogger.custom('Test bg green',
+          ansiCode: [AnsiCode.bgGreen], prefix: '[BG_GREEN] ');
     });
 
     test('combined ANSI codes', () {
