@@ -92,9 +92,17 @@ class ColoredLogger {
     List<String>? ansiCode,
   }) {
     final String? flattenAnsiCode_ = ansiCode?.join('');
-    final String ansiColorDecoded = flattenAnsiCode_ ??
-        AnsiCode.getColorByCode(colorCode) ??
-        AnsiCode.normal;
-    debugPrint('$ansiColorDecoded$prefix$message${AnsiCode.reset}');
+    final String ansiColorDecoded = flattenAnsiCode_ ?? AnsiCode.getColorByCode(colorCode) ?? AnsiCode.normal;
+
+    // Handle multiline text while preserving color
+    String coloredMessage;
+    if (message.contains('\n')) {
+      final lines = message.split('\n');
+      coloredMessage = lines.map((line) => '$ansiColorDecoded$prefix$line${AnsiCode.reset}').join('\n');
+    } else {
+      coloredMessage = '$ansiColorDecoded$prefix$message${AnsiCode.reset}';
+    }
+
+    debugPrint(coloredMessage);
   }
 }

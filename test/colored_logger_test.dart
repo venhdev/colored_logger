@@ -20,6 +20,10 @@ void main() {
     test('error logging', () {
       ColoredLogger.error('Test error message');
     });
+
+    test('multi lines', () {
+      ColoredLogger.custom('Line 1\nLine 2\nLine 3', prefix: '[DEBUG] ', colorCode: 'green');
+    });
   });
 
   group('Custom Logging with Color Codes', () {

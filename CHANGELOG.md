@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Multiple lines support
+
 ## 0.0.3
 
 - using debugPrint instead of print
