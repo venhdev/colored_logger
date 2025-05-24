@@ -90,23 +90,22 @@ class ColoredLogger {
     String prefix = '',
     String colorCode = 'normal',
     List<String>? ansiCode,
+    int chunkSize = 800,
   }) {
     final String? flattenAnsiCode_ = ansiCode?.join('');
-    final String ansiColorDecoded = flattenAnsiCode_ ??
-        AnsiCode.getColorByCode(colorCode) ??
-        AnsiCode.normal;
+    final String ansiColorDecoded = flattenAnsiCode_ ?? AnsiCode.getColorByCode(colorCode) ?? AnsiCode.normal;
 
-    // Handle multiline text while preserving color
+    // Handle multiline text while preserving color and chunking
     String coloredMessage;
     if (message.contains('\n')) {
       final lines = message.split('\n');
-      coloredMessage = lines
-          .map((line) => '$ansiColorDecoded$prefix$line${AnsiCode.reset}')
-          .join('\n');
+      coloredMessage = lines.map((line) => '$ansiColorDecoded$prefix$line${AnsiCode.reset}').join('\n');
     } else {
       coloredMessage = '$ansiColorDecoded$prefix$message${AnsiCode.reset}';
     }
 
-    debugPrint(coloredMessage);
+    // Split long messages into chunks
+    final pattern = RegExp('.{1,$chunkSize}', dotAll: true);
+    pattern.allMatches(coloredMessage).forEach((match) => debugPrint(match.group(0)));
   }
 }
