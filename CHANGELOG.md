@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Fix chunk processing
+
 ## 0.0.5
 
 - Long text support
