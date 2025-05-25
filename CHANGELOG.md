@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Add 'colorizeText' function
+
 ## 1.0.0
 
 - Fix chunk processing

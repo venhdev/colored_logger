@@ -143,7 +143,55 @@ The `AnsiCode` class provides ANSI escape codes for terminal text styling.
 
 #### Utility Methods
 
-- `AnsiCode.getColorByCode(String color)` - Returns the ANSI code for a given color name
+- `AnsiCode.getColorByCode(String color)` - Returns the common ANSI code for a given color name
+
+### Utility Functions
+
+#### colorizeText
+
+The package provides a utility function to directly colorize text with ANSI codes:
+
+```dart
+String colorizeText(
+  String text, {
+    List<String>? ansiCode,
+    String continueAnsi = AnsiCode.normal,
+  }
+)
+```
+
+Parameters:
+
+- `text`: The text to colorize
+- `ansiCode`: Optional list of ANSI codes to apply
+- `continueAnsi`: Continue ANSI code to apply after the text (default: `AnsiCode.normal`)
+
+Example usage:
+
+```dart
+import 'package:colored_logger/colored_logger.dart';
+import 'package:colored_logger/ansi_code.dart';
+
+// Colorize text with a single ANSI code
+String greenText = colorizeText('This text is green', ansiCode: [AnsiCode.green]);
+print(greenText);
+
+// Colorize text with multiple ANSI codes
+String boldCyanText = colorizeText(
+  'This text is bold and cyan',
+  ansiCode: [AnsiCode.bold, AnsiCode.cyan]
+);
+print(boldCyanText);
+
+// Colorize multiline text (each line gets colored separately)
+String multilineText = colorizeText(
+  'Line 1\nLine 2\nLine 3',
+  ansiCode: [AnsiCode.yellow]
+);
+print(multilineText);
+```
+
+This function properly handles multiline text by applying the color codes to each line individually.
 
 ## Example
 
