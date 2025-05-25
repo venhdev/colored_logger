@@ -97,21 +97,25 @@ class ColoredLogger {
         AnsiCode.getColorByCode(colorCode) ??
         AnsiCode.normal;
 
-    // Handle multiline text while preserving color and chunking
-    String coloredMessage;
-    if (message.contains('\n')) {
-      final lines = message.split('\n');
-      coloredMessage = lines
-          .map((line) => '$ansiColorDecoded$prefix$line${AnsiCode.reset}')
-          .join('\n');
-    } else {
-      coloredMessage = '$ansiColorDecoded$prefix$message${AnsiCode.reset}';
+    final List<String> chunks = [];
+    for (var i = 0; i < message.length; i += chunkSize) {
+      final end =
+          (i + chunkSize < message.length) ? i + chunkSize : message.length;
+      chunks.add(message.substring(i, end));
     }
 
-    // Split long messages into chunks
-    final pattern = RegExp('.{1,$chunkSize}', dotAll: true);
-    pattern
-        .allMatches(coloredMessage)
-        .forEach((match) => debugPrint(match.group(0)));
+    // Process each chunk with color and multiline handling
+    for (final chunk in chunks) {
+      String coloredChunk;
+      if (chunk.contains('\n')) {
+        final lines = chunk.split('\n');
+        coloredChunk = lines
+            .map((line) => '$ansiColorDecoded$prefix$line${AnsiCode.reset}')
+            .join('\n');
+      } else {
+        coloredChunk = '$ansiColorDecoded$prefix$chunk${AnsiCode.reset}';
+      }
+      debugPrint(coloredChunk);
+    }
   }
 }
