@@ -154,17 +154,16 @@ The package provides a utility function to directly colorize text with ANSI code
 ```dart
 String colorizeText(
   String text, {
-    List<String>? ansiCode,
-    String continueAnsi = AnsiCode.normal,
-  }
-)
+  List<String>? ansiCode,
+  List<String> forwardTo = const [AnsiCode.normal],
+})
 ```
 
 Parameters:
 
 - `text`: The text to colorize
-- `ansiCode`: Optional list of ANSI codes to apply
-- `continueAnsi`: Continue ANSI code to apply after the text (default: `AnsiCode.normal`)
+- `ansiCode`: Optional list of ANSI codes to apply to the text
+- `forwardTo`: List of ANSI codes to apply after the text (default: `[AnsiCode.normal]`). Used to forward styling to the next line or reset to normal.
 
 Example usage:
 
@@ -189,6 +188,14 @@ String multilineText = colorizeText(
   ansiCode: [AnsiCode.yellow]
 );
 print(multilineText);
+
+// Preserve color after text (for continued styling)
+String preservedColorText = colorizeText(
+  'This begins a colored section',
+  ansiCode: [AnsiCode.red],
+  forwardTo: [AnsiCode.red] // Continue with red text after this
+);
+print(preservedColorText + ' and this continues in the same color');
 ```
 
 This function properly handles multiline text by applying the color codes to each line individually.

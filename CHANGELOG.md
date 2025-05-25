@@ -1,6 +1,6 @@
-## 1.0.1
+## 1.0.2
 
-- Add 'colorizeText' function
+- Add 'colorizeText' function to colorize text before printing it to console
 
 ## 1.0.0
 
