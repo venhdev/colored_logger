@@ -129,10 +129,10 @@ class AnsiCode {
   ///
   /// Example:
   /// ```dart
-  /// final redCode = AnsiCode.getColorByCode('red'); // Returns '\x1B[31m'
+  /// final redCode = AnsiCode.getColorByName('red'); // Returns '\x1B[31m'
   /// ```
-  static String? getColorByCode(String color) {
-    switch (color.toLowerCase()) {
+  static String? getColorByName(String name) {
+    switch (name.toLowerCase()) {
       case 'reset':
       case 'normal':
         return reset;

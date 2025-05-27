@@ -39,7 +39,7 @@ class ColoredLogger {
   /// @param message The message to log
   /// @param prefix The prefix to add before the message (default: '[INFO] ')
   static void info(String message, {String prefix = '[INFO] '}) {
-    custom(message, colorCode: 'blue', prefix: prefix);
+    custom(message, colorName: 'blue', prefix: prefix);
   }
 
   /// Logs a success message in green color.
@@ -52,7 +52,7 @@ class ColoredLogger {
   /// @param message The message to log
   /// @param prefix The prefix to add before the message (default: '[SUCCESS] ')
   static void success(String message, {String prefix = '[SUCCESS] '}) {
-    custom(message, colorCode: 'green', prefix: prefix);
+    custom(message, colorName: 'green', prefix: prefix);
   }
 
   /// Logs a warning message in yellow color.
@@ -65,7 +65,7 @@ class ColoredLogger {
   /// @param message The message to log
   /// @param prefix The prefix to add before the message (default: '[WARNING] ')
   static void warning(String message, {String prefix = '[WARNING] '}) {
-    custom(message, colorCode: 'yellow', prefix: prefix);
+    custom(message, colorName: 'yellow', prefix: prefix);
   }
 
   /// Logs an error message in red color.
@@ -78,19 +78,19 @@ class ColoredLogger {
   /// @param message The message to log
   /// @param prefix The prefix to add before the message (default: '[ERROR] ')
   static void error(String message, {String prefix = '[ERROR] '}) {
-    custom(message, colorCode: 'red', prefix: prefix);
+    custom(message, colorName: 'red', prefix: prefix);
   }
 
   /// Logs a custom message with specified color and prefix.
   ///
   /// This method allows for complete customization of the log message appearance.
-  /// You can specify either a color code by name or provide specific ANSI codes.
+  /// You can specify either a color name or provide specific ANSI codes.
   ///
-  /// If both [colorCode] and [ansiCode] are provided, [ansiCode] will take precedence.
+  /// If both [colorName] and [ansiCode] are provided, [ansiCode] will take precedence.
   ///
-  /// Example with color code:
+  /// Example with color name:
   /// ```dart
-  /// ColoredLogger.custom('Custom message', colorCode: 'magenta', prefix: '[CUSTOM] ');
+  /// ColoredLogger.custom('Custom message', colorName: 'magenta', prefix: '[CUSTOM] ');
   /// ```
   ///
   /// Example with ANSI codes:
@@ -100,41 +100,46 @@ class ColoredLogger {
   ///     prefix: '[STYLED] ');
   /// ```
   ///
-  /// @param message The message to log
-  /// @param prefix The prefix to add before the message (default: empty string)
-  /// @param colorCode The name of the color to use (e.g., 'red', 'green', 'blue')
-  /// @param ansiCode List of ANSI codes to apply (takes precedence over colorCode if provided)
+  /// - @param [message] The message to log
+  /// - @param [prefix] The prefix to add before the message (default: empty string)
+  /// - @param [colorName] The name of the color to use (e.g., 'red', 'green', 'blue')
+  /// - @param [ansiCode] List of ANSI codes to apply (takes precedence over colorName if provided)
+  /// - @param [chunkSize] The size of each chunk for multiline messages (default: null)
   static void custom(
     String message, {
     String prefix = '',
-    String colorCode = 'normal',
+    String colorName = 'normal',
     List<String>? ansiCode,
-    int chunkSize = 800,
+    int? chunkSize, // 800
   }) {
     final String? flattenAnsiCode_ = ansiCode?.join('');
     final String ansiColorDecoded = flattenAnsiCode_ ??
-        AnsiCode.getColorByCode(colorCode) ??
+        AnsiCode.getColorByName(colorName) ??
         AnsiCode.normal;
 
-    final List<String> chunks = [];
-    for (var i = 0; i < message.length; i += chunkSize) {
-      final end =
-          (i + chunkSize < message.length) ? i + chunkSize : message.length;
-      chunks.add(message.substring(i, end));
-    }
-
-    // Process each chunk with color and multiline handling
-    for (final chunk in chunks) {
-      String coloredChunk;
-      if (chunk.contains('\n')) {
-        final lines = chunk.split('\n');
-        coloredChunk = lines
-            .map((line) => '$ansiColorDecoded$prefix$line${AnsiCode.reset}')
-            .join('\n');
-      } else {
-        coloredChunk = '$ansiColorDecoded$prefix$chunk${AnsiCode.reset}';
+    if (chunkSize == null) {
+      debugPrint(colorizeText(message, ansiCode: [ansiColorDecoded]));
+    } else {
+      final List<String> chunks = [];
+      for (var i = 0; i < message.length; i += chunkSize) {
+        final end =
+            (i + chunkSize < message.length) ? i + chunkSize : message.length;
+        chunks.add(message.substring(i, end));
       }
-      debugPrint(coloredChunk);
+
+      // Process each chunk with color and multiline handling
+      for (final chunk in chunks) {
+        String coloredChunk;
+        if (chunk.contains('\n')) {
+          final lines = chunk.split('\n');
+          coloredChunk = lines
+              .map((line) => '$ansiColorDecoded$prefix$line${AnsiCode.reset}')
+              .join('\n');
+        } else {
+          coloredChunk = '$ansiColorDecoded$prefix$chunk${AnsiCode.reset}';
+        }
+        debugPrint(coloredChunk);
+      }
     }
   }
 }

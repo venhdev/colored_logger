@@ -54,9 +54,9 @@ import 'package:colored_logger/colored_logger.dart';
 import 'package:colored_logger/ansi_code.dart';
 
 void main() {
-  // Custom colored message with a specific color code
-  ColoredLogger.custom('Custom message with color code',
-      colorCode: 'magenta',
+  // Custom colored message with a specific color name
+  ColoredLogger.custom('Custom message with color name',
+      colorName: 'magenta',
       prefix: '[CUSTOM] ');
 
   // Custom colored message with ANSI codes
@@ -85,7 +85,7 @@ The `ColoredLogger` class provides static methods for logging messages with diff
 ColoredLogger.custom(
   String message, {
   String prefix = '',
-  String colorCode = 'normal',
+  String colorName = 'normal',
   List<String>? ansiCode,
 })
 ```
@@ -94,8 +94,8 @@ Parameters:
 
 - `message`: The message to log
 - `prefix`: Optional prefix to add before the message (default: empty string)
-- `colorCode`: Color name to use (e.g., 'red', 'green', 'blue')
-- `ansiCode`: List of ANSI codes to apply (takes precedence over colorCode if provided)
+- `colorName`: Color name to use (e.g., 'red', 'green', 'blue')
+- `ansiCode`: List of ANSI codes to apply (takes precedence over colorName if provided)
 
 ### AnsiCode Class
 
@@ -143,7 +143,7 @@ The `AnsiCode` class provides ANSI escape codes for terminal text styling.
 
 #### Utility Methods
 
-- `AnsiCode.getColorByCode(String color)` - Returns the common ANSI code for a given color name
+- `AnsiCode.getColorByName(String color)` - Returns the common ANSI code for a given color name
 
 ### Utility Functions
 

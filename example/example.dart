@@ -8,9 +8,9 @@ void main() {
   ColoredLogger.warning('This is a warning message');
   ColoredLogger.error('An error occurred');
 
-  // Custom colored message with a specific color code
-  ColoredLogger.custom('Custom message with color code',
-      colorCode: 'magenta', prefix: '[CUSTOM] ');
+  // Custom colored message with a specific color name
+  ColoredLogger.custom('Custom message with color name',
+      colorName: 'magenta', prefix: '[CUSTOM] ');
 
   // Custom colored message with ANSI codes
   ColoredLogger.custom('Custom message with ANSI codes',

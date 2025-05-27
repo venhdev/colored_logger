@@ -23,30 +23,30 @@ void main() {
 
     test('multi lines', () {
       ColoredLogger.custom('Line 1\nLine 2\nLine 3',
-          prefix: '[DEBUG] ', colorCode: 'green');
+          prefix: '[DEBUG] ', colorName: 'green');
     });
   });
 
-  group('Custom Logging with Color Codes', () {
-    test('normal color code', () {
+  group('Custom Logging with Color Names', () {
+    test('normal color name', () {
       ColoredLogger.custom('Test normal message',
-          colorCode: 'normal', prefix: '[NORMAL] ');
+          colorName: 'normal', prefix: '[NORMAL] ');
     });
 
-    test('custom color codes', () {
+    test('custom color names', () {
       ColoredLogger.custom('Test blue message',
-          colorCode: 'blue', prefix: '[BLUE] ');
+          colorName: 'blue', prefix: '[BLUE] ');
       ColoredLogger.custom('Test red message',
-          colorCode: 'red', prefix: '[RED] ');
+          colorName: 'red', prefix: '[RED] ');
       ColoredLogger.custom('Test green message',
-          colorCode: 'green', prefix: '[GREEN] ');
+          colorName: 'green', prefix: '[GREEN] ');
       ColoredLogger.custom('Test yellow message',
-          colorCode: 'yellow', prefix: '[YELLOW] ');
+          colorName: 'yellow', prefix: '[YELLOW] ');
     });
 
     test('long string', () {
       final String longString = 'A' * 100000; // 100,000 'A's
-      ColoredLogger.custom(longString, colorCode: 'green', prefix: '[BLUE] ');
+      ColoredLogger.custom(longString, colorName: 'green', prefix: '[BLUE] ');
     });
   });
 
