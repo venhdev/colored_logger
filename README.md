@@ -7,14 +7,9 @@ A simple yet powerful colored logging utility for Dart and Flutter applications 
 ## Features
 
 - **Color-coded log levels**: Easily distinguish between different types of logs (info, success, warning, error)
-- **Custom logging**: Create your own colored log messages with custom prefixes
 - **ANSI color support**: Includes a variety of ANSI color codes for terminal output
 - **RGB & 256 color support**: Create millions of colors with true color RGB and 8-bit color support
-- **Predefined styles**: Ready-to-use semantic styles like error, success, warning, info, and more
-- **Named colors**: Common color names like coral, gold, teal, and more for easy styling
-- **Advanced text styling**: Support for strikethrough, blink, reverse, and more text decorations
-- **Lightweight**: Minimal dependencies, just import and use
-- **Easy to use**: Simple static methods for quick implementation
+- **Predefined styles**: Ready-to-use semantic styles, colors, text decorations
 
 ## Installation
 
@@ -22,7 +17,7 @@ Add the package to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  colored_logger: ^1.1.0
+  colored_logger: ^1.2.0
 ```
 
 Then run:
