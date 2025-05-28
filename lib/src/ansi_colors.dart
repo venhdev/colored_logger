@@ -40,23 +40,23 @@ class AnsiColors {
 
   // 8-bit color support (256 colors)
   /// Returns a foreground color using 8-bit color (256 colors)
-  /// 
+  ///
   /// The color parameter should be between 0-255
   static String fg256(int color) => '\x1B[38;5;${color}m';
 
   /// Returns a background color using 8-bit color (256 colors)
-  /// 
+  ///
   /// The color parameter should be between 0-255
   static String bg256(int color) => '\x1B[48;5;${color}m';
 
   // RGB true color support (16 million colors)
   /// Returns a foreground color using RGB values
-  /// 
+  ///
   /// Each parameter (r,g,b) should be between 0-255
   static String fgRGB(int r, int g, int b) => '\x1B[38;2;$r;$g;${b}m';
 
   /// Returns a background color using RGB values
-  /// 
+  ///
   /// Each parameter (r,g,b) should be between 0-255
   static String bgRGB(int r, int g, int b) => '\x1B[48;2;$r;$g;${b}m';
 
@@ -104,16 +104,19 @@ class AnsiColors {
   static List<String> get link => [AnsiCode.underline, AnsiCode.cyan];
 
   /// Code style: Bright white text on bright black background
-  static List<String> get code => [AnsiCode.brightWhite, AnsiCode.bgBrightBlack];
+  static List<String> get code =>
+      [AnsiCode.brightWhite, AnsiCode.bgBrightBlack];
 
   /// Quote style: Italic green text
   static List<String> get quote => [AnsiCode.italic, AnsiCode.green];
 
   /// Header style: Bold underlined bright white text
-  static List<String> get header => [AnsiCode.bold, AnsiCode.underline, AnsiCode.brightWhite];
+  static List<String> get header =>
+      [AnsiCode.bold, AnsiCode.underline, AnsiCode.brightWhite];
 
   /// Subheader style: Underlined bright white text
-  static List<String> get subheader => [AnsiCode.underline, AnsiCode.brightWhite];
+  static List<String> get subheader =>
+      [AnsiCode.underline, AnsiCode.brightWhite];
 
   // Common color names with RGB values
   /// Coral color (RGB: 255, 127, 80)

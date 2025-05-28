@@ -3,7 +3,7 @@
 /// This class contains static constants for various ANSI codes that can be used
 /// to style text output in terminal environments that support ANSI escape sequences.
 /// It includes codes for text styles, foreground colors, background colors, and more.
-/// 
+///
 /// For more advanced styling options and predefined color combinations, see the
 /// [AnsiColors] class.
 class AnsiCode {
@@ -146,24 +146,24 @@ class AnsiCode {
   /// ```dart
   /// final redCode = AnsiCode.getColorByName('red'); // Returns '\x1B[31m'
   /// ```
-  
+
   /// Returns a foreground color using 8-bit color (256 colors)
-  /// 
+  ///
   /// The color parameter should be between 0-255
   static String fg256(int color) => '\x1B[38;5;${color}m';
 
   /// Returns a background color using 8-bit color (256 colors)
-  /// 
+  ///
   /// The color parameter should be between 0-255
   static String bg256(int color) => '\x1B[48;5;${color}m';
 
   /// Returns a foreground color using RGB values
-  /// 
+  ///
   /// Each parameter (r,g,b) should be between 0-255
   static String fgRGB(int r, int g, int b) => '\x1B[38;2;$r;$g;${b}m';
 
   /// Returns a background color using RGB values
-  /// 
+  ///
   /// Each parameter (r,g,b) should be between 0-255
   static String bgRGB(int r, int g, int b) => '\x1B[48;2;$r;$g;${b}m';
   static String? getColorByName(String name) {

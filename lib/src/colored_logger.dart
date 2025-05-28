@@ -6,7 +6,7 @@ import 'package:colored_logger/src/ansi_code.dart';
 /// - [text] is the text to colorize, maybe a function that returns a String
 /// - [ansiCodes] List of ANSI codes to apply to the [text]. Specify the [ansiStyle] if you want to use a predefined style, it takes precedence over [ansiCodes]
 /// - [forwardTo] List of ANSI codes to forward to after the text, it can be used to return to the previous color for multiple styles in the same line
-/// 
+///
 String colorizeText(
   dynamic text, {
   List<String> ansiCodes = const [AnsiCode.normal],
@@ -90,7 +90,7 @@ class ColoredLogger {
   }
 
   /// This method allows for complete customization of the log message appearance.
-  /// 
+  ///
   /// You can specify either a color name or provide specific ANSI codes. If both [colorName] and [ansiCodes] are provided, [ansiCodes] will take precedence.
   ///
   /// - [message] The message to log
@@ -120,7 +120,8 @@ class ColoredLogger {
         AnsiCode.normal;
 
     if (chunkSize == null) {
-      writer(colorizeText(message, ansiStyle: ansiStyle, prefix: prefix, suffix: suffix));
+      writer(colorizeText(message,
+          ansiStyle: ansiStyle, prefix: prefix, suffix: suffix));
     } else {
       if (chunkSize <= 0) {
         throw ArgumentError('chunkSize must be greater than 0');
@@ -136,7 +137,8 @@ class ColoredLogger {
 
       // Process each chunk with color and multiline handling
       for (final String chunk in chunks) {
-        final String coloredChunk = colorizeText(chunk, ansiStyle: ansiStyle, prefix: prefix, suffix: suffix);
+        final String coloredChunk = colorizeText(chunk,
+            ansiStyle: ansiStyle, prefix: prefix, suffix: suffix);
         writer(coloredChunk);
       }
     }
