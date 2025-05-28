@@ -1,3 +1,12 @@
+## 1.2.0
+
+Enhance colored logger with advanced styling and RGB support
+
+- Add support for RGB and 256-color ANSI codes
+- Introduce new AnsiColors class with predefined styles
+- Remove Flutter dependency making it pure Dart
+- Update documentation with new features and examples
+
 ## 1.1.0
 
 - Change @param 'colorCode' to 'colorName'

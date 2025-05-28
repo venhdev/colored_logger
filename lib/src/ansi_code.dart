@@ -3,6 +3,9 @@
 /// This class contains static constants for various ANSI codes that can be used
 /// to style text output in terminal environments that support ANSI escape sequences.
 /// It includes codes for text styles, foreground colors, background colors, and more.
+/// 
+/// For more advanced styling options and predefined color combinations, see the
+/// [AnsiColors] class.
 class AnsiCode {
   // Standard foreground colors
   /// Reset all styles and colors to default
@@ -22,6 +25,18 @@ class AnsiCode {
 
   /// Underlined text style
   static const String underline = '\x1B[4m';
+
+  /// Blink text style (not supported in all terminals)
+  static const String blink = '\x1B[5m';
+
+  /// Reverse/invert the foreground and background colors
+  static const String reverse = '\x1B[7m';
+
+  /// Hidden/invisible text (not widely supported)
+  static const String hidden = '\x1B[8m';
+
+  /// Strikethrough text
+  static const String strikethrough = '\x1B[9m';
 
   /// Black text color
   static const String black = '\x1B[30m';
@@ -131,6 +146,26 @@ class AnsiCode {
   /// ```dart
   /// final redCode = AnsiCode.getColorByName('red'); // Returns '\x1B[31m'
   /// ```
+  
+  /// Returns a foreground color using 8-bit color (256 colors)
+  /// 
+  /// The color parameter should be between 0-255
+  static String fg256(int color) => '\x1B[38;5;${color}m';
+
+  /// Returns a background color using 8-bit color (256 colors)
+  /// 
+  /// The color parameter should be between 0-255
+  static String bg256(int color) => '\x1B[48;5;${color}m';
+
+  /// Returns a foreground color using RGB values
+  /// 
+  /// Each parameter (r,g,b) should be between 0-255
+  static String fgRGB(int r, int g, int b) => '\x1B[38;2;$r;$g;${b}m';
+
+  /// Returns a background color using RGB values
+  /// 
+  /// Each parameter (r,g,b) should be between 0-255
+  static String bgRGB(int r, int g, int b) => '\x1B[48;2;$r;$g;${b}m';
   static String? getColorByName(String name) {
     switch (name.toLowerCase()) {
       case 'reset':
@@ -144,6 +179,14 @@ class AnsiCode {
         return italic;
       case 'underline':
         return underline;
+      case 'blink':
+        return blink;
+      case 'reverse':
+        return reverse;
+      case 'hidden':
+        return hidden;
+      case 'strikethrough':
+        return strikethrough;
 
       case 'black':
         return black;
