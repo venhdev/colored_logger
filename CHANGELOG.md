@@ -1,6 +1,7 @@
-## 1.2.1
+## 1.2.2
 
 - enhance (info, success, warning, error) methods with predefined color styles (with bold)
+- make [ColoredLogger.custom.writer] optional
 
 ## 1.2.0
 

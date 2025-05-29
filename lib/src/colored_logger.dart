@@ -108,20 +108,20 @@ class ColoredLogger {
   /// ```
   ///
   static void custom(
-    String message, {
+    dynamic message, {
     String prefix = '',
     String suffix = '',
     String colorName = 'normal',
     List<String>? ansiCodes,
     int? chunkSize,
-    void Function(String) writer = _defaultConsoleWrite,
+    void Function(String)? writer,
   }) {
     final String ansiStyle = ansiCodes?.join('') ??
         AnsiCode.getColorByName(colorName) ??
         AnsiCode.normal;
 
     if (chunkSize == null) {
-      writer(colorizeText(message,
+      (writer ?? _defaultConsoleWriter)(colorizeText(message,
           ansiStyle: ansiStyle, prefix: prefix, suffix: suffix));
     } else {
       if (chunkSize <= 0) {
@@ -129,18 +129,19 @@ class ColoredLogger {
       }
 
       // Split the message into chunks
+      final String messageStr = _stringifyText(message);
       final List<String> chunks = [];
-      for (var i = 0; i < message.length; i += chunkSize) {
-        final end =
-            (i + chunkSize < message.length) ? i + chunkSize : message.length;
-        chunks.add(message.substring(i, end));
+      for (var i = 0; i < messageStr.length; i += chunkSize) {
+        final end = (i + chunkSize < messageStr.length)
+            ? i + chunkSize
+            : messageStr.length;
+        chunks.add(messageStr.substring(i, end));
       }
 
       // Process each chunk with color and multiline handling
       for (final String chunk in chunks) {
-        final String coloredChunk = colorizeText(chunk,
-            ansiStyle: ansiStyle, prefix: prefix, suffix: suffix);
-        writer(coloredChunk);
+        (writer ?? _defaultConsoleWriter)(colorizeText(chunk,
+            ansiStyle: ansiStyle, prefix: prefix, suffix: suffix));
       }
     }
   }
@@ -158,4 +159,4 @@ String _stringifyText(dynamic text) {
   }
 }
 
-void _defaultConsoleWrite(String text) => print(text);
+void _defaultConsoleWriter(String text) => print(text);
