@@ -115,7 +115,7 @@ void main() {
 
       // Custom colored message with ANSI codes
       ColoredLogger.custom('Custom message with ANSI codes',
-          ansiCodes: [AnsiCode.cyan], prefix: '[STYLED] ');
+          ansiCodes: [AnsiCode.cyan, AnsiCode.bold], prefix: '[STYLED] ');
 
       // Using different text styles
       ColoredLogger.custom('Bold text', ansiCodes: [AnsiCode.bold]);

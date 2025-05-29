@@ -1,3 +1,7 @@
+## 1.2.1
+
+- enhance (info, success, warning, error) methods with predefined color styles (with bold)
+
 ## 1.2.0
 
 Enhance colored logger with advanced styling and RGB support
