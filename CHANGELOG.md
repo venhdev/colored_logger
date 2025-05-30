@@ -1,3 +1,7 @@
+## 1.2.3
+
+- Add ability to disable colorization in [ColoredLogger.custom]
+
 ## 1.2.2
 
 - enhance (info, success, warning, error) methods with predefined color styles (with bold)

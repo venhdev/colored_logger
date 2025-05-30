@@ -7,6 +7,9 @@ import 'ansi_colors.dart';
 /// - [text] is the text to colorize, maybe a function that returns a String
 /// - [ansiCodes] List of ANSI codes to apply to the [text]. Specify the [ansiStyle] if you want to use a predefined style, it takes precedence over [ansiCodes]
 /// - [forwardTo] List of ANSI codes to forward to after the text, it can be used to return to the previous color for multiple styles in the same line
+/// - [prefix] The prefix to add before the text (default: '')
+/// - [suffix] The suffix to add after the text (default: '')
+/// - [disabled] If true, the text will not be colored (default: false)
 ///
 String colorizeText(
   dynamic text, {
@@ -15,8 +18,10 @@ String colorizeText(
   String? ansiStyle,
   String prefix = '',
   String suffix = '',
+  bool disabled = false,
 }) {
   final String text_ = '$prefix${_stringifyText(text)}$suffix';
+  if (disabled) return text_;
 
   final List<String> lines = text_.split('\n');
   final String ansiStyle_ = ansiStyle ?? ansiCodes.join('');
@@ -99,6 +104,8 @@ class ColoredLogger {
   /// - [colorName] The name of the color to use (e.g., 'red', 'green', 'blue')
   /// - [ansiCodes] List of ANSI codes to apply (takes precedence over colorName if provided)
   /// - [chunkSize] The size of each chunk for long messages (default: null), must be greater than 0
+  ///  - [writer] The function to write the message (default: print)
+  /// - [disabled] If true, the message will not be colored (default: false)
   ///
   /// Example:
   /// ```dart
@@ -115,14 +122,20 @@ class ColoredLogger {
     List<String>? ansiCodes,
     int? chunkSize,
     void Function(String)? writer,
+    bool disabled = false,
   }) {
     final String ansiStyle = ansiCodes?.join('') ??
         AnsiCode.getColorByName(colorName) ??
         AnsiCode.normal;
 
     if (chunkSize == null) {
-      (writer ?? _defaultConsoleWriter)(colorizeText(message,
-          ansiStyle: ansiStyle, prefix: prefix, suffix: suffix));
+      (writer ?? _defaultConsoleWriter)(colorizeText(
+        message,
+        ansiStyle: ansiStyle,
+        prefix: prefix,
+        suffix: suffix,
+        disabled: disabled,
+      ));
     } else {
       if (chunkSize <= 0) {
         throw ArgumentError('chunkSize must be greater than 0');
@@ -141,7 +154,10 @@ class ColoredLogger {
       // Process each chunk with color and multiline handling
       for (final String chunk in chunks) {
         (writer ?? _defaultConsoleWriter)(colorizeText(chunk,
-            ansiStyle: ansiStyle, prefix: prefix, suffix: suffix));
+            ansiStyle: ansiStyle,
+            prefix: prefix,
+            suffix: suffix,
+            disabled: disabled));
       }
     }
   }

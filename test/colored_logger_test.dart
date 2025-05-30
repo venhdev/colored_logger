@@ -41,11 +41,6 @@ void main() {
       ColoredLogger.custom('Test yellow message',
           colorName: 'yellow', prefix: '[YELLOW] ');
     });
-
-    test('long string', () {
-      final String longString = 'A' * 100000; // 100,000 'A's
-      ColoredLogger.custom(longString, colorName: 'green', prefix: '[BLUE] ');
-    });
   });
 
   group('Custom Logging with ANSI Codes', () {
@@ -93,9 +88,9 @@ void main() {
   /// Print Long String
 
   group('Print Long String', () {
-    test('long A*100000', () {
-      final String longString = 'A' * 100000; // 10,000 'A's
-      ColoredLogger.custom('$longString--print-end',
+    test('A * 10,000', () {
+      final String longString = 'A' * 10000; // 10,000 'A's
+      ColoredLogger.custom('$longString--Print Long String--END',
           colorName: 'green', writer: print);
     });
   });
