@@ -2,6 +2,8 @@
 
 A simple yet powerful colored logging utility for Dart and Flutter applications that enhances console output with ANSI colors and styles.
 
+[![pub package](https://img.shields.io/pub/v/colored_logger.svg)](https://pub.dev/packages/colored_logger)
+
 ![Screenshot](https://raw.githubusercontent.com/venhdev/colored_logger/main/screenshots/image.png)
 
 ## Features
@@ -17,7 +19,7 @@ Add the package to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  colored_logger: ^1.2.0
+  colored_logger: ^1.2.3
 ```
 
 Then run:
@@ -156,10 +158,6 @@ The `AnsiCode` class provides ANSI escape codes for terminal text styling.
 - `AnsiCode.bg256(int color)` - Returns a background color using 8-bit color (256 colors)
 - `AnsiCode.fgRGB(int r, int g, int b)` - Returns a foreground color using RGB values
 - `AnsiCode.bgRGB(int r, int g, int b)` - Returns a background color using RGB values
-
-#### Utility Methods
-
-- `AnsiCode.getColorByName(String color)` - Returns the common ANSI code for a given color name
 
 ### AnsiColors Class
 

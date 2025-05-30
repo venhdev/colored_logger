@@ -1,11 +1,17 @@
 name: colored_logger
 description: "A Dart package for colored terminal logs (VS Code, Android Studio, IntelliJ) with Ansi escape codes."
-version: 1.2.3
+version: 1.2.4
 homepage: https://www.venhdev.me
 repository: https://github.com/venhdev/colored_logger
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
+
+topics:
+  - logging
+  - cli
+  - developer-tools
+  - console
 
 dependencies:
 
