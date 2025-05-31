@@ -103,6 +103,7 @@ Parameters:
 - `prefix`: Optional prefix to add before the message (default: empty string)
 - `colorName`: Color name to use (e.g., 'red', 'green', 'blue')
 - `ansiCodes`: List of ANSI codes to apply (takes precedence over colorName if provided)
+- `colored`: If false, the message will not be colored (default: true)
 
 ### AnsiCode Class
 

@@ -1,6 +1,6 @@
-## 1.2.4
+## 1.2.5
 
-- Add ability to disable colorization in [ColoredLogger.custom]
+- Add ability to disable colorization in `ColoredLogger.custom` with `colored` set to false
 
 ## 1.2.2
 

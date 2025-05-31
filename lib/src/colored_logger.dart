@@ -9,7 +9,7 @@ import 'ansi_colors.dart';
 /// - [forwardTo] List of ANSI codes to forward to after the text, it can be used to return to the previous color for multiple styles in the same line
 /// - [prefix] The prefix to add before the text (default: '')
 /// - [suffix] The suffix to add after the text (default: '')
-/// - [disabled] If true, the text will not be colored (default: false)
+/// - [colored] If false, the text will not be colored (default: true)
 ///
 String colorizeText(
   dynamic text, {
@@ -18,10 +18,10 @@ String colorizeText(
   String? ansiStyle,
   String prefix = '',
   String suffix = '',
-  bool disabled = false,
+  bool colored = true,
 }) {
   final String text_ = '$prefix${_stringifyText(text)}$suffix';
-  if (disabled) return text_;
+  if (!colored) return text_;
 
   final List<String> lines = text_.split('\n');
   final String ansiStyle_ = ansiStyle ?? ansiCodes.join('');
@@ -105,7 +105,7 @@ class ColoredLogger {
   /// - [ansiCodes] List of ANSI codes to apply (takes precedence over colorName if provided)
   /// - [chunkSize] The size of each chunk for long messages (default: null), must be greater than 0
   ///  - [writer] The function to write the message (default: print)
-  /// - [disabled] If true, the message will not be colored (default: false)
+  /// - [colored] If false, the message will not be colored (default: true)
   ///
   /// Example:
   /// ```dart
@@ -122,7 +122,7 @@ class ColoredLogger {
     List<String>? ansiCodes,
     int? chunkSize,
     void Function(String)? writer,
-    bool disabled = false,
+    bool colored = true,
   }) {
     final String ansiStyle = ansiCodes?.join('') ??
         AnsiCode.getColorByName(colorName) ??
@@ -134,7 +134,7 @@ class ColoredLogger {
         ansiStyle: ansiStyle,
         prefix: prefix,
         suffix: suffix,
-        disabled: disabled,
+        colored: colored,
       ));
     } else {
       if (chunkSize <= 0) {
@@ -157,7 +157,7 @@ class ColoredLogger {
             ansiStyle: ansiStyle,
             prefix: prefix,
             suffix: suffix,
-            disabled: disabled));
+            colored: colored));
       }
     }
   }

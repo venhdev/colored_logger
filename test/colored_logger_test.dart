@@ -83,6 +83,21 @@ void main() {
         prefix: '[BRIGHT] ',
       );
     });
+
+    test('colored = false', () {
+      final List<String> capturedOutput = [];
+      ColoredLogger.custom(
+        'This should not be colored',
+        colored: false,
+        colorName: 'green',
+        writer: (msg) {
+          capturedOutput.add(msg);
+          print(msg); // Print to the standard output for manual verification
+        },
+      );
+      expect(capturedOutput.isNotEmpty, true);
+      expect(capturedOutput[0].contains('\x1B'), false);
+    });
   });
 
   /// Print Long String
