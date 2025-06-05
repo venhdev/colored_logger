@@ -1,7 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
+
+import 'package:colored_logger/src/utils.dart';
 
 import 'ansi_code.dart';
 import 'ansi_colors.dart';
+
+
+
+void _defaultConsoleWriter(String text) => print(text);
 
 /// A public method to generate a String that applies ANSI escape codes to colorize the given text before printing it to console
 /// - [text] is the text to colorize, maybe a function that returns a String
@@ -20,8 +27,8 @@ String colorizeText(
   String suffix = '',
   bool colored = true,
 }) {
-  final String text_ = '$prefix${_stringifyText(text)}$suffix';
-  if (!colored) return text_;
+  final String text_ = '$prefix${stringify(text)}$suffix';
+  if (!colored || !isSupportAnsi) return text_;
 
   final List<String> lines = text_.split('\n');
   final String ansiStyle_ = ansiStyle ?? ansiCodes.join('');
@@ -142,7 +149,7 @@ class ColoredLogger {
       }
 
       // Split the message into chunks
-      final String messageStr = _stringifyText(message);
+      final String messageStr = stringify(message);
       final List<String> chunks = [];
       for (var i = 0; i < messageStr.length; i += chunkSize) {
         final end = (i + chunkSize < messageStr.length)
@@ -162,17 +169,3 @@ class ColoredLogger {
     }
   }
 }
-
-String _stringifyText(dynamic text) {
-  if (text == null) return '';
-  if (text is String) return text;
-  final finalText = text is Function ? text() : text;
-  if (finalText is Map || finalText is Iterable) {
-    var encoder = const JsonEncoder.withIndent(null);
-    return encoder.convert(finalText);
-  } else {
-    return finalText.toString();
-  }
-}
-
-void _defaultConsoleWriter(String text) => print(text);
