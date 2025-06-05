@@ -107,6 +107,8 @@ Parameters:
 
 ### AnsiCode Class
 
+**Deprecated**: The `AnsiCode` class is deprecated and will be removed in a future release (v2.0.0). Use the `Ansi` class instead.
+
 The `AnsiCode` class provides ANSI escape codes for terminal text styling.
 
 #### Text Styles
@@ -161,6 +163,8 @@ The `AnsiCode` class provides ANSI escape codes for terminal text styling.
 - `AnsiCode.bgRGB(int r, int g, int b)` - Returns a background color using RGB values
 
 ### AnsiColors Class
+
+**Deprecated**: The `AnsiColors` class is deprecated and will be removed in a future release (v2.0.0). Use the `Ansi` class instead.
 
 The `AnsiColors` class provides enhanced styling options and predefined color combinations for terminal output.
 
@@ -228,29 +232,27 @@ The `AnsiColors` class provides enhanced styling options and predefined color co
 
 ### Utility Functions
 
-#### colorizeText
+#### colorize
 
-The package provides a utility function to directly colorize text with ANSI codes:
+The package provides a new utility function to directly colorize text with ANSI codes using the `Ansi` class:
 
 ```dart
-String colorizeText(
-  dynamic text, {
-  List<String> ansiCodes = const [AnsiCode.normal],
-  List<String> forwardTo = const [AnsiCode.normal],
-  String? ansiStyle,
+String colorize(
+  dynamic input,
+  Ansi ansi, {
   String prefix = '',
   String suffix = '',
+  bool colored = true,
 })
 ```
 
 Parameters:
 
-- `text`: The text to colorize, maybe a function that returns a String
-- `ansiCodes`: List of ANSI codes to apply to the text (default: `[AnsiCode.normal]`)
-- `forwardTo`: List of ANSI codes to apply after the text (default: `[AnsiCode.normal]`). Used to forward styling to the next line or reset to normal
-- `ansiStyle`: Optional string of ANSI codes to apply (takes precedence over ansiCodes if provided)
-- `prefix`: Optional prefix to add before the text (default: empty string)
-- `suffix`: Optional suffix to add after the text (default: empty string)
+- `input`: The text to colorize.
+- `ansi`: The `Ansi` code to apply to the text.
+- `prefix`: An optional prefix to add before the text.
+- `suffix`: An optional suffix to add after the text.
+- `colored`: If `false`, the text will not be colored.
 
 Example usage:
 
@@ -258,63 +260,41 @@ Example usage:
 import 'package:colored_logger/colored_logger.dart';
 
 // Colorize text with a single ANSI code
-String greenText = colorizeText('This text is green', ansiCodes: [AnsiCode.green]);
+String greenText = colorize('This text is green', Ansi.green);
 print(greenText);
 
 // Colorize text with multiple ANSI codes
-String boldCyanText = colorizeText(
+String boldCyanText = colorize(
   'This text is bold and cyan',
-  ansiCodes: [AnsiCode.bold, AnsiCode.cyan]
+  Ansi.bold.combine(Ansi.cyan)
 );
 print(boldCyanText);
 
 // Using RGB colors
-String rgbText = colorizeText(
+String rgbText = colorize(
   'This text uses RGB color',
-  ansiCodes: [AnsiCode.fgRGB(255, 100, 50)]
+  Ansi.fgRgb(255, 100, 50)
 );
 print(rgbText);
 
-// Using predefined styles from AnsiColors
-String errorText = colorizeText(
+// Using predefined styles from Ansi
+String errorText = colorize(
   'This is an error message',
-  ansiCodes: AnsiColors.error
+  Ansi.red.bold
 );
 print(errorText);
 
-// Using named colors from AnsiColors
-String goldText = colorizeText(
-  'This text is gold colored',
-  ansiCodes: [AnsiColors.gold]
-);
-print(goldText);
-
-// Colorize multiline text (each line gets colored separately)
-String multilineText = colorizeText(
-  'Line 1\nLine 2\nLine 3',
-  ansiCodes: [AnsiCode.yellow]
-);
-print(multilineText);
-
 // Using prefix and suffix
-String prefixedText = colorizeText(
+String prefixedText = colorize(
   'Important message',
-  ansiCodes: [AnsiCode.bold, AnsiCode.red],
+  Ansi.red.bold,
   prefix: '[ALERT] ',
   suffix: ' !'
 );
 print(prefixedText);
-
-// Preserve color after text (for continued styling)
-String preservedColorText = colorizeText(
-  'This begins a colored section',
-  ansiCodes: [AnsiCode.red],
-  forwardTo: [AnsiCode.red] // Continue with red text after this
-);
-print(preservedColorText + ' and this continues in the same color');
 ```
 
-This function properly handles multiline text by applying the color codes to each line individually.
+**Deprecated**: The `colorizeText` function is deprecated and will be removed in a future release (v2.0.0). Use `colorize` instead.
 
 ## Example
 
