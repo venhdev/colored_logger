@@ -6,6 +6,8 @@
 ///
 /// For more advanced styling options and predefined color combinations, see the
 /// [AnsiColors] class.
+@Deprecated(
+    'This class will be removed in a future release. Use `Ansi` class instead.')
 class AnsiCode {
   // Standard foreground colors
   /// Reset all styles and colors to default

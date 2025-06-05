@@ -1,6 +1,6 @@
-import 'ansi.dart';
-import 'extensions.dart';
-import 'debug.dart';
+import 'package:colored_logger/src/ansi.dart';
+import 'package:colored_logger/src/debug.dart';
+import 'package:colored_logger/src/extensions.dart';
 
 // Mock isSupportAnsi for testing non-ANSI environments
 bool _mockIsSupportAnsi = true;

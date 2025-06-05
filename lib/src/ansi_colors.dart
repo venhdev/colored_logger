@@ -6,6 +6,8 @@ import 'package:colored_logger/src/ansi_code.dart';
 /// that make it easier to create visually appealing terminal output.
 /// It builds upon the basic ANSI codes but provides more semantic naming and
 /// additional style options.
+@Deprecated(
+    'This class will be removed in a future release. Use `Ansi` class instead.')
 class AnsiColors {
   /// Private constructor to prevent instantiation
   AnsiColors._();

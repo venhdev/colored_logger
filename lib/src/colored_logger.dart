@@ -1,14 +1,40 @@
-import 'dart:convert';
-import 'dart:io';
-
+import 'package:colored_logger/src/extensions.dart';
 import 'package:colored_logger/src/utils.dart';
 
+import 'ansi.dart';
 import 'ansi_code.dart';
 import 'ansi_colors.dart';
 
-
-
 void _defaultConsoleWriter(String text) => print(text);
+
+/// A public method to generate a String that applies ANSI escape codes to colorize the given text.
+///
+/// This method leverages `StyledString` and `Ansi` for advanced text styling.
+///
+/// - [input] The text to colorize.
+/// - [ansi] The ANSI code to apply to the text.
+/// - [prefix] An optional prefix to add before the text.
+/// - [suffix] An optional suffix to add after the text.
+/// - [colored] If `false`, the text will not be colored.
+///
+/// Example:
+/// ```dart
+/// String coloredString = colorize('Hello, World!', Ansi.red.bold);
+/// print(coloredString);
+/// ```
+String colorize(
+  dynamic input,
+  Ansi ansi, {
+  String prefix = '',
+  String suffix = '',
+  bool colored = true,
+}) {
+  final String str_ = '$prefix${stringify(input)}$suffix';
+  if (!colored || !isSupportAnsi) return str_;
+
+  final StyledString styledText = StyledString(str_, [ansi]);
+  return styledText.toString();
+}
 
 /// A public method to generate a String that applies ANSI escape codes to colorize the given text before printing it to console
 /// - [text] is the text to colorize, maybe a function that returns a String
@@ -18,6 +44,7 @@ void _defaultConsoleWriter(String text) => print(text);
 /// - [suffix] The suffix to add after the text (default: '')
 /// - [colored] If false, the text will not be colored (default: true)
 ///
+@Deprecated('Use `colorize` instead. This will be removed in future versions.')
 String colorizeText(
   dynamic text, {
   List<String> ansiCodes = const [AnsiCode.normal],
