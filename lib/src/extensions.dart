@@ -1,63 +1,227 @@
+import 'package:colored_logger/src/utils.dart';
+
 import 'ansi.dart';
 
+// Public functions for styling
+StyledString bold(String text) => StyledString(text, [Ansi.bold]);
+StyledString faint(String text) => StyledString(text, [Ansi.faint]);
+StyledString italic(String text) => StyledString(text, [Ansi.italic]);
+StyledString underline(String text) => StyledString(text, [Ansi.underline]);
+StyledString slowBlink(String text) => StyledString(text, [Ansi.slowBlink]);
+StyledString fastBlink(String text) => StyledString(text, [Ansi.fastBlink]);
+StyledString inverse(String text) => StyledString(text, [Ansi.inverse]);
+StyledString conceal(String text) => StyledString(text, [Ansi.conceal]);
+StyledString strikethrough(String text) =>
+    StyledString(text, [Ansi.strikethrough]);
+StyledString defaultFont(String text) => StyledString(text, [Ansi.defaultFont]);
+StyledString doubleUnderline(String text) =>
+    StyledString(text, [Ansi.doubleUnderline]);
+StyledString superscript(String text) => StyledString(text, [Ansi.superscript]);
+StyledString subscript(String text) => StyledString(text, [Ansi.subscript]);
+StyledString overline(String text) => StyledString(text, [Ansi.overline]);
+StyledString framed(String text) => StyledString(text, [Ansi.framed]);
+StyledString encircled(String text) => StyledString(text, [Ansi.encircled]);
+StyledString font(String text, int n) => StyledString(text, [Ansi.font(n)]);
+StyledString fg256(String text, int colorIndex) =>
+    StyledString(text, [Ansi.fg256(colorIndex)]);
+StyledString bg256(String text, int colorIndex) =>
+    StyledString(text, [Ansi.bg256(colorIndex)]);
+StyledString fgRgb(String text, int r, int g, int b) =>
+    StyledString(text, [Ansi.fgRgb(r, g, b)]);
+StyledString bgRgb(String text, int r, int g, int b) =>
+    StyledString(text, [Ansi.bgRgb(r, g, b)]);
+StyledString black(String text) => StyledString(text, [Ansi.black]);
+StyledString red(String text) => StyledString(text, [Ansi.red]);
+StyledString green(String text) => StyledString(text, [Ansi.green]);
+StyledString yellow(String text) => StyledString(text, [Ansi.yellow]);
+StyledString blue(String text) => StyledString(text, [Ansi.blue]);
+StyledString magenta(String text) => StyledString(text, [Ansi.magenta]);
+StyledString cyan(String text) => StyledString(text, [Ansi.cyan]);
+StyledString white(String text) => StyledString(text, [Ansi.white]);
+StyledString brightBlack(String text) => StyledString(text, [Ansi.brightBlack]);
+StyledString brightRed(String text) => StyledString(text, [Ansi.brightRed]);
+StyledString brightGreen(String text) => StyledString(text, [Ansi.brightGreen]);
+StyledString brightYellow(String text) =>
+    StyledString(text, [Ansi.brightYellow]);
+StyledString brightBlue(String text) => StyledString(text, [Ansi.brightBlue]);
+StyledString brightMagenta(String text) =>
+    StyledString(text, [Ansi.brightMagenta]);
+StyledString brightCyan(String text) => StyledString(text, [Ansi.brightCyan]);
+StyledString brightWhite(String text) => StyledString(text, [Ansi.brightWhite]);
+StyledString bgBlack(String text) => StyledString(text, [Ansi.bgBlack]);
+StyledString bgRed(String text) => StyledString(text, [Ansi.bgRed]);
+StyledString bgGreen(String text) => StyledString(text, [Ansi.bgGreen]);
+StyledString bgYellow(String text) => StyledString(text, [Ansi.bgYellow]);
+StyledString bgBlue(String text) => StyledString(text, [Ansi.bgBlue]);
+StyledString bgMagenta(String text) => StyledString(text, [Ansi.bgMagenta]);
+StyledString bgCyan(String text) => StyledString(text, [Ansi.bgCyan]);
+StyledString bgWhite(String text) => StyledString(text, [Ansi.bgWhite]);
+StyledString bgBrightBlack(String text) =>
+    StyledString(text, [Ansi.bgBrightBlack]);
+StyledString bgBrightRed(String text) => StyledString(text, [Ansi.bgBrightRed]);
+StyledString bgBrightGreen(String text) =>
+    StyledString(text, [Ansi.bgBrightGreen]);
+StyledString bgBrightYellow(String text) =>
+    StyledString(text, [Ansi.bgBrightYellow]);
+StyledString bgBrightBlue(String text) =>
+    StyledString(text, [Ansi.bgBrightBlue]);
+StyledString bgBrightMagenta(String text) =>
+    StyledString(text, [Ansi.bgBrightMagenta]);
+StyledString bgBrightCyan(String text) =>
+    StyledString(text, [Ansi.bgBrightCyan]);
+StyledString bgBrightWhite(String text) =>
+    StyledString(text, [Ansi.bgBrightWhite]);
+
 extension AnsiString on String {
+  // Helper method to start styling
+  StyledString style(Ansi ansi) => StyledString(this, [ansi]);
+
   // ## 1. Text Formatting
-  String get bold => Ansi.bold.paint(this);
-  String get faint => Ansi.faint.paint(this);
-  String get italic => Ansi.italic.paint(this);
-  String get underline => Ansi.underline.paint(this);
-  String get slowBlink => Ansi.slowBlink.paint(this);
-  String get fastBlink => Ansi.fastBlink.paint(this);
-  String get inverse => Ansi.inverse.paint(this);
-  String get conceal => Ansi.conceal.paint(this);
-  String get strikethrough => Ansi.strikethrough.paint(this);
-  String get defaultFont => Ansi.defaultFont.paint(this);
-  String get doubleUnderline => Ansi.doubleUnderline.paint(this);
+  StyledString get bold => style(Ansi.bold);
+  StyledString get faint => style(Ansi.faint);
+  StyledString get italic => style(Ansi.italic);
+  StyledString get underline => style(Ansi.underline);
+  StyledString get slowBlink => style(Ansi.slowBlink);
+  StyledString get fastBlink => style(Ansi.fastBlink);
+  StyledString get inverse => style(Ansi.inverse);
+  StyledString get conceal => style(Ansi.conceal);
+  StyledString get strikethrough => style(Ansi.strikethrough);
+  StyledString get defaultFont => style(Ansi.defaultFont);
+  StyledString get doubleUnderline => style(Ansi.doubleUnderline);
+  StyledString get superscript => style(Ansi.superscript);
+  StyledString get subscript => style(Ansi.subscript);
+  StyledString get overline => style(Ansi.overline);
+  StyledString get framed => style(Ansi.framed);
+  StyledString get encircled => style(Ansi.encircled);
 
   // ## 2. Alternate Fonts
-  String font(int n) => Ansi.font(n).paint(this);
+  StyledString font(int n) => style(Ansi.font(n));
 
   // ## 3. Foreground Colors
-  String get black => Ansi.black.paint(this);
-  String get red => Ansi.red.paint(this);
-  String get green => Ansi.green.paint(this);
-  String get yellow => Ansi.yellow.paint(this);
-  String get blue => Ansi.blue.paint(this);
-  String get magenta => Ansi.magenta.paint(this);
-  String get cyan => Ansi.cyan.paint(this);
-  String get white => Ansi.white.paint(this);
-  String get brightBlack => Ansi.brightBlack.paint(this);
-  String get brightRed => Ansi.brightRed.paint(this);
-  String get brightGreen => Ansi.brightGreen.paint(this);
-  String get brightYellow => Ansi.brightYellow.paint(this);
-  String get brightBlue => Ansi.brightBlue.paint(this);
-  String get brightMagenta => Ansi.brightMagenta.paint(this);
-  String get brightCyan => Ansi.brightCyan.paint(this);
-  String get brightWhite => Ansi.brightWhite.paint(this);
+  StyledString get black => style(Ansi.black);
+  StyledString get red => style(Ansi.red);
+  StyledString get green => style(Ansi.green);
+  StyledString get yellow => style(Ansi.yellow);
+  StyledString get blue => style(Ansi.blue);
+  StyledString get magenta => style(Ansi.magenta);
+  StyledString get cyan => style(Ansi.cyan);
+  StyledString get white => style(Ansi.white);
+  StyledString get brightBlack => style(Ansi.brightBlack);
+  StyledString get brightRed => style(Ansi.brightRed);
+  StyledString get brightGreen => style(Ansi.brightGreen);
+  StyledString get brightYellow => style(Ansi.brightYellow);
+  StyledString get brightBlue => style(Ansi.brightBlue);
+  StyledString get brightMagenta => style(Ansi.brightMagenta);
+  StyledString get brightCyan => style(Ansi.brightCyan);
+  StyledString get brightWhite => style(Ansi.brightWhite);
 
   // ## 4. Background Colors
-  String get bgBlack => Ansi.bgBlack.paint(this);
-  String get bgRed => Ansi.bgRed.paint(this);
-  String get bgGreen => Ansi.bgGreen.paint(this);
-  String get bgYellow => Ansi.bgYellow.paint(this);
-  String get bgBlue => Ansi.bgBlue.paint(this);
-  String get bgMagenta => Ansi.bgMagenta.paint(this);
-  String get bgCyan => Ansi.bgCyan.paint(this);
-  String get bgWhite => Ansi.bgWhite.paint(this);
-  String get bgBrightBlack => Ansi.bgBrightBlack.paint(this);
-  String get bgBrightRed => Ansi.bgBrightRed.paint(this);
-  String get bgBrightGreen => Ansi.bgBrightGreen.paint(this);
-  String get bgBrightYellow => Ansi.bgBrightYellow.paint(this);
-  String get bgBrightBlue => Ansi.bgBrightBlue.paint(this);
-  String get bgBrightMagenta => Ansi.bgBrightMagenta.paint(this);
-  String get bgBrightCyan => Ansi.bgBrightCyan.paint(this);
-  String get bgBrightWhite => Ansi.bgBrightWhite.paint(this);
+  StyledString get bgBlack => style(Ansi.bgBlack);
+  StyledString get bgRed => style(Ansi.bgRed);
+  StyledString get bgGreen => style(Ansi.bgGreen);
+  StyledString get bgYellow => style(Ansi.bgYellow);
+  StyledString get bgBlue => style(Ansi.bgBlue);
+  StyledString get bgMagenta => style(Ansi.bgMagenta);
+  StyledString get bgCyan => style(Ansi.bgCyan);
+  StyledString get bgWhite => style(Ansi.bgWhite);
+  StyledString get bgBrightBlack => style(Ansi.bgBrightBlack);
+  StyledString get bgBrightRed => style(Ansi.bgBrightRed);
+  StyledString get bgBrightGreen => style(Ansi.bgBrightGreen);
+  StyledString get bgBrightYellow => style(Ansi.bgBrightYellow);
+  StyledString get bgBrightBlue => style(Ansi.bgBrightBlue);
+  StyledString get bgBrightMagenta => style(Ansi.bgBrightMagenta);
+  StyledString get bgBrightCyan => style(Ansi.bgBrightCyan);
+  StyledString get bgBrightWhite => style(Ansi.bgBrightWhite);
 
   // ## 5. 256-Color Support
-  String fg256(int colorIndex) => Ansi.fg256(colorIndex).paint(this);
-  String bg256(int colorIndex) => Ansi.bg256(colorIndex).paint(this);
+  StyledString fg256(int colorIndex) => style(Ansi.fg256(colorIndex));
+  StyledString bg256(int colorIndex) => style(Ansi.bg256(colorIndex));
 
   // ## 6. True Color (RGB) Support
-  String fgRgb(int r, int g, int b) => Ansi.fgRgb(r, g, b).paint(this);
-  String bgRgb(int r, int g, int b) => Ansi.bgRgb(r, g, b).paint(this);
+  StyledString fgRgb(int r, int g, int b) => style(Ansi.fgRgb(r, g, b));
+  StyledString bgRgb(int r, int g, int b) => style(Ansi.bgRgb(r, g, b));
+}
+
+// Helper class to accumulate and apply styles
+class StyledString {
+  final String _text;
+  final List<Ansi> _styles;
+
+  StyledString(this._text, this._styles);
+
+  // Combine with another style
+  StyledString _addStyle(Ansi ansi) => StyledString(_text, [..._styles, ansi]);
+
+  // Text Formatting
+  StyledString get bold => _addStyle(Ansi.bold);
+  StyledString get faint => _addStyle(Ansi.faint);
+  StyledString get italic => _addStyle(Ansi.italic);
+  StyledString get underline => _addStyle(Ansi.underline);
+  StyledString get slowBlink => _addStyle(Ansi.slowBlink);
+  StyledString get fastBlink => _addStyle(Ansi.fastBlink);
+  StyledString get inverse => _addStyle(Ansi.inverse);
+  StyledString get conceal => _addStyle(Ansi.conceal);
+  StyledString get strikethrough => _addStyle(Ansi.strikethrough);
+  StyledString get defaultFont => _addStyle(Ansi.defaultFont);
+  StyledString get doubleUnderline => _addStyle(Ansi.doubleUnderline);
+  StyledString get superscript => _addStyle(Ansi.superscript);
+  StyledString get subscript => _addStyle(Ansi.subscript);
+  StyledString get overline => _addStyle(Ansi.overline);
+  StyledString get framed => _addStyle(Ansi.framed);
+  StyledString get encircled => _addStyle(Ansi.encircled);
+
+  // Alternate Fonts
+  StyledString font(int n) => _addStyle(Ansi.font(n));
+
+  // Foreground Colors
+  StyledString get black => _addStyle(Ansi.black);
+  StyledString get red => _addStyle(Ansi.red);
+  StyledString get green => _addStyle(Ansi.green);
+  StyledString get yellow => _addStyle(Ansi.yellow);
+  StyledString get blue => _addStyle(Ansi.blue);
+  StyledString get magenta => _addStyle(Ansi.magenta);
+  StyledString get cyan => _addStyle(Ansi.cyan);
+  StyledString get white => _addStyle(Ansi.white);
+  StyledString get brightBlack => _addStyle(Ansi.brightBlack);
+  StyledString get brightRed => _addStyle(Ansi.brightRed);
+  StyledString get brightGreen => _addStyle(Ansi.brightGreen);
+  StyledString get brightYellow => _addStyle(Ansi.brightYellow);
+  StyledString get brightBlue => _addStyle(Ansi.brightBlue);
+  StyledString get brightMagenta => _addStyle(Ansi.brightMagenta);
+  StyledString get brightCyan => _addStyle(Ansi.brightCyan);
+  StyledString get brightWhite => _addStyle(Ansi.brightWhite);
+
+  // Background Colors
+  StyledString get bgBlack => _addStyle(Ansi.bgBlack);
+  StyledString get bgRed => _addStyle(Ansi.bgRed);
+  StyledString get bgGreen => _addStyle(Ansi.bgGreen);
+  StyledString get bgYellow => _addStyle(Ansi.bgYellow);
+  StyledString get bgBlue => _addStyle(Ansi.bgBlue);
+  StyledString get bgMagenta => _addStyle(Ansi.bgMagenta);
+  StyledString get bgCyan => _addStyle(Ansi.bgCyan);
+  StyledString get bgWhite => _addStyle(Ansi.bgWhite);
+  StyledString get bgBrightBlack => _addStyle(Ansi.bgBrightBlack);
+  StyledString get bgBrightRed => _addStyle(Ansi.bgBrightRed);
+  StyledString get bgBrightGreen => _addStyle(Ansi.bgBrightGreen);
+  StyledString get bgBrightYellow => _addStyle(Ansi.bgBrightYellow);
+  StyledString get bgBrightBlue => _addStyle(Ansi.bgBrightBlue);
+  StyledString get bgBrightMagenta => _addStyle(Ansi.bgBrightMagenta);
+  StyledString get bgBrightCyan => _addStyle(Ansi.bgBrightCyan);
+  StyledString get bgBrightWhite => _addStyle(Ansi.bgBrightWhite);
+
+  // 256-Color Support
+  StyledString fg256(int colorIndex) => _addStyle(Ansi.fg256(colorIndex));
+  StyledString bg256(int colorIndex) => _addStyle(Ansi.bg256(colorIndex));
+
+  // True Color (RGB) Support
+  StyledString fgRgb(int r, int g, int b) => _addStyle(Ansi.fgRgb(r, g, b));
+  StyledString bgRgb(int r, int g, int b) => _addStyle(Ansi.bgRgb(r, g, b));
+
+  // Convert to string by combining all styles
+  @override
+  String toString() {
+    if (_styles.isEmpty || !isSupportAnsi) return _text;
+    final combined = _styles.reduce((a, b) => a.combine(b));
+    return combined.paint(_text);
+  }
 }
