@@ -6,8 +6,7 @@ bool get _supportStdout =>
     stdioType(stdout) == StdioType.terminal ||
     stdioType(stdout) == StdioType.pipe;
 
-bool get _isDev =>
-    Platform.script.path.split('/').last.startsWith('test.dart');
+bool get _isDev => Platform.script.path.split('/').last.startsWith('test.dart');
 
 bool get isSupportAnsi => (_supportsAnsiEscapes && _supportStdout) || _isDev;
 
