@@ -1,3 +1,7 @@
+## 1.2.7
+
+- Introduce new styling mechanism using `Ansi` and `StyledString` for enhanced text customization.
+
 ## 1.2.6
 
 - Deprecate `colorizeText` function in favor of new `colorize` method.
