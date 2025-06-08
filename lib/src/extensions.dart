@@ -75,6 +75,7 @@ StyledString bgBrightWhite(String text) =>
 extension AnsiString on String {
   // Helper method to start styling
   StyledString style(Ansi ansi) => StyledString(this, [ansi]);
+  StyledString emptyStyle() => StyledString(this, []);
 
   // ## 1. Text Formatting
   StyledString get bold => style(Ansi.bold);
@@ -142,7 +143,10 @@ extension AnsiString on String {
   StyledString bgRgb(int r, int g, int b) => style(Ansi.bgRgb(r, g, b));
 
   /// This function will paint the string with rainbow colors. If your string already have ansi code, it will be stripped first.
-  StyledString rainbow() {
+  StyledString rainbow([bool force = false]) {
+    // check whether string is empty or isSupportAnsi
+    if ((isEmpty || !isSupportAnsi) && !force) return emptyStyle();
+
     final colors = [
       Ansi.red,
       Ansi.yellow,

@@ -91,15 +91,14 @@ void main() {
       label: 'Underline + Bright Cyan + Black Background + Font 2');
 
   print('\n=== Nested Styles ===');
-  String nested = bold('Bold').toString() + ' and ' + red('Red').toString();
+  String nested = '${bold('Bold')} and ${red('Red')}';
   printEscCodes(italic(nested).toString(), label: 'Bold + Red, then Italic');
-  String complexNested =
-      green('Green ' + underline('Underlined').toString()).toString();
+  String complexNested = green('Green ${underline('Underlined')}').toString();
   printEscCodes(bold(complexNested).toString(),
       label: 'Green + Underlined, then Bold');
 
   print('\n=== Complex Chaining with Nested Styles ===');
-  String nested2 = red('Red ' + italic('Italic').toString()).toString();
+  String nested2 = red('Red ${italic('Italic')}').toString();
   printEscCodes(bold(nested2).bg256(128).toString(),
       label: 'Red + Italic, then Bold + 256(128)');
   String multiNested =

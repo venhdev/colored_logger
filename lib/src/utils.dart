@@ -28,7 +28,7 @@ String ansiInfo() {
   final s4 =
       '[AnsiInfo] The current environment is a test environment: $_isTest';
   final s5 =
-      '[AnsiInfo] Demo: This is ${'red${'Italic'.italic}'.red} text and this is ${'green${bold('Bold')}'.green} text. This is a ${fastBlink('${'rainbow text'.rainbow().slowBlink}').bold}. Can you see it?';
+      '[AnsiInfo] Demo: This is ${'red${'Italic'.italic}'.red()} text and this is ${'green${bold('Bold')}'.green.paint()} text. This is a ${'rainbow text'.rainbow(true).italic.slowBlink()}. Can you see it?';
   return '$s1\n$s2\n$s3\n$s4\n$s5';
 }
 
