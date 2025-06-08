@@ -108,16 +108,6 @@ void main() {
 
 ## ANSI Support
 
-Check ANSI support in your terminal:
-
-```dart
-import 'package:colored_logger/colored_logger.dart';
-
-void main() {
-  showAnsiInfo();
-}
-```
-
 Force ANSI support with environment variables:
 
 ```bash
@@ -126,6 +116,25 @@ dart run --define=ANSI=true main.dart
 
 # Flutter
 flutter run --dart-define=ANSI=true
+```
+
+When applying styles, you might encounter situations where ANSI escape codes are not rendered in your terminal. This can happen if the terminal does not fully support ANSI or if the `isSupportAnsi` utility function (which checks environment variables and stdout capabilities) returns `false`.
+
+To ensure your styled output is always rendered, you can explicitly force ANSI support using the `paint()` or `call()` methods on `StyledString`:
+
+- `print('Bold text'.bold);` (without `()` or `.paint()`): In this case, the `force` parameter defaults to `false`. If `isSupportAnsi` is `false`, no ANSI codes will be applied.
+- `print('Bold text'.bold());` or `print('Bold text'.bold.paint());`: When `()` or `.paint()` is explicitly called, the `force` parameter is set to `true`. This will force the application of ANSI codes regardless of the `isSupportAnsi` value.
+
+It is recommended to use `showAnsiInfo()` to check your system's ANSI support, as `isSupportAnsi` might sometimes return `false` even if your CLI environment supports ANSI.
+
+Check ANSI support in your terminal:
+
+```dart
+import 'package:colored_logger/colored_logger.dart';
+
+void main() {
+  showAnsiInfo();
+}
 ```
 
 ## License

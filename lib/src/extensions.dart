@@ -185,11 +185,11 @@ class StyledString {
 
   /// Convert to string by combining all styles
   /// - [force] force apply ansi code even if not support ansi
-  String paint([bool force = false]) => toString(force);
+  String paint([bool force = true]) => toString(force);
 
   /// Convert to string by combining all styles
   /// - [force] force apply ansi code even if not support ansi
-  String call([bool force = false]) => paint(force);
+  String call([bool force = true]) => paint(force);
 
   // Text Formatting
   StyledString get bold => _addStyle(Ansi.bold);
