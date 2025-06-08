@@ -32,7 +32,7 @@ void main() {
   ColoredLogger.success('Operation completed successfully');
   ColoredLogger.warning('This is a warning message');
   ColoredLogger.error('An error occurred');
-  
+
   // Custom styling
   ColoredLogger.colorize(
     'Custom message with bold and cyan text',
@@ -51,14 +51,14 @@ void main() {
   // Apply styles directly to strings
   print('Bold text'.bold());
   print('Red text'.red());
-  
+
   // Chain multiple styles
   print('Bold italic green text'.bold.italic.green());
-  
+
   // Advanced colors
   print('256-color text'.fg256(201)());
   print('RGB color text'.fgRgb(255, 100, 0)());
-  
+
   // Special effects
   print('Rainbow text'.rainbow());
 }
@@ -73,15 +73,15 @@ void main() {
   // Static methods
   print(Ansi.bold.paint('Bold text'));
   print(Ansi.red.paint('Red text'));
-  
+
   // Combine styles
   final boldRed = Ansi.bold.combine(Ansi.red);
   print(boldRed.paint('Bold red text'));
-  
+
   // Using + operator
   final boldItalicGreen = Ansi.bold + Ansi.italic + Ansi.green;
   print(boldItalicGreen.paint('Bold italic green text'));
-  
+
   // Fluent chaining API
   final customStyle = Ansi.empty.cBold.cItalic.cRed.cBgYellow;
   print(customStyle.paint('Custom styled text'));
@@ -91,22 +91,34 @@ void main() {
 ## Available Styles
 
 ### Text Formatting
+
 - `bold`, `faint`, `italic`, `underline`, `doubleUnderline`
 - `strikethrough`, `overline`, `inverse`, `conceal`
 - `slowBlink`, `fastBlink`, `superscript`, `subscript`
 - `framed`, `encircled`
 
 ### Colors
+
 - Standard: `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`
 - Bright: `brightBlack`, `brightRed`, `brightGreen`, `brightYellow`, `brightBlue`, `brightMagenta`, `brightCyan`, `brightWhite`
 - Background: `bgBlack`, `bgRed`, `bgGreen`, `bgYellow`, `bgBlue`, `bgMagenta`, `bgCyan`, `bgWhite`
 - Bright Background: `bgBrightBlack`, `bgBrightRed`, `bgBrightGreen`, `bgBrightYellow`, `bgBrightBlue`, `bgBrightMagenta`, `bgBrightCyan`, `bgBrightWhite`
 
 ### Extended Colors
+
 - 256-color: `fg256(index)`, `bg256(index)`
 - RGB: `fgRgb(r, g, b)`, `bgRgb(r, g, b)`
 
 ## ANSI Support
+
+ANSI escape codes might not render if your terminal lacks support or if `isSupportAnsi` returns `false`.
+
+- Use `paint()` or `call()` on `StyledString` to **force** ANSI rendering, even if `isSupportAnsi` is false. e.g:
+
+  - `print('Text'.bold.paint())`
+  - `print('Text'.bold())`
+
+- Otherwise, `print('Hello'.red)` may not colorize the text because not all recognized terminals can report whether they support ANSI escape sequences.
 
 Force ANSI support with environment variables:
 
@@ -118,24 +130,7 @@ dart run --define=ANSI=true main.dart
 flutter run --dart-define=ANSI=true
 ```
 
-When applying styles, you might encounter situations where ANSI escape codes are not rendered in your terminal. This can happen if the terminal does not fully support ANSI or if the `isSupportAnsi` utility function (which checks environment variables and stdout capabilities) returns `false`.
-
-To ensure your styled output is always rendered, you can explicitly force ANSI support using the `paint()` or `call()` methods on `StyledString`:
-
-- `print('Bold text'.bold);` (without `()` or `.paint()`): In this case, the `force` parameter defaults to `false`. If `isSupportAnsi` is `false`, no ANSI codes will be applied.
-- `print('Bold text'.bold());` or `print('Bold text'.bold.paint());`: When `()` or `.paint()` is explicitly called, the `force` parameter is set to `true`. This will force the application of ANSI codes regardless of the `isSupportAnsi` value.
-
-It is recommended to use `showAnsiInfo()` to check your system's ANSI support, as `isSupportAnsi` might sometimes return `false` even if your CLI environment supports ANSI.
-
-Check ANSI support in your terminal:
-
-```dart
-import 'package:colored_logger/colored_logger.dart';
-
-void main() {
-  showAnsiInfo();
-}
-```
+To check you have ANSI support in your terminal with `showAnsiInfo()` function.
 
 ## License
 
