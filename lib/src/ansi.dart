@@ -21,7 +21,7 @@ class Ansi {
   /// Parameters:
   /// - `_codes`: A list of strings representing the ANSI codes to apply.
   /// - `_resetCodes`: A list of strings representing the ANSI codes to reset the applied style.
-  Ansi._(this._codes, this._resetCodes);
+  const Ansi._(this._codes, this._resetCodes);
 
   /// Factory constructor for creating standard `Ansi` instances.
   ///
@@ -102,7 +102,8 @@ class Ansi {
   // STATIC METHODS (Original API preserved)
   // ## 1. Text Formatting
   /// Resets all ANSI formatting to default.
-  static Ansi get reset => Ansi(0, 0);
+  // static Ansi get reset => Ansi(0, 0);
+  static const Ansi get = Ansi._(['0'], ['0']);
 
   /// Applies bold/increased intensity formatting.
   static Ansi get bold => Ansi(1, 22);

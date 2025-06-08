@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:colored_logger/colored_logger.dart';
 import 'package:test/test.dart';
 
 void main() {
+  var writer = print;
   group('Colored Logger Demonstrations', () {
+    // final writer = print;
     test('Basic Log Levels', () {
-      print('\n--- Basic Log Levels ---');
+      log('\n--- Basic Log Levels ---');
       ColoredLogger.info('This is an info message');
       ColoredLogger.success('Operation completed successfully');
       ColoredLogger.warning('This is a warning message');
@@ -13,32 +17,33 @@ void main() {
         'Custom message with color name',
         styles: [Ansi.magenta],
         prefix: '[CUSTOM] ',
+        writer: writer,
       );
     });
 
     test('String Extensions - Text Formatting', () {
-      print('\n--- String Extensions - Text Formatting ---');
-      print('Bold text'.bold());
-      print('Italic text'.italic());
-      print('Underlined text'.underline());
-      print('Strikethrough text'.strikethrough());
-      print('Blinking text'.slowBlink());
-      print('Reversed colors'.inverse());
-      print('Text with background'.bgGreen());
+      log('\n--- String Extensions - Text Formatting ---');
+      writer('Bold text'.bold());
+      writer('Italic text'.italic());
+      writer('Underlined text'.underline());
+      writer('Strikethrough text'.strikethrough());
+      writer('Blinking text'.slowBlink());
+      writer('Reversed colors'.inverse());
+      writer('Text with background'.bgGreen());
     });
 
     test('String Extensions - Extended Colors', () {
-      print('256 color foreground'.fg256(27)());
-      print('256 color background'.bg256(27)());
-      print('RGB color foreground'.fgRgb(255, 100, 0)());
-      print('RGB color background'.bgRgb(255, 100, 0)());
+      writer('256 color foreground'.fg256(27)());
+      writer('256 color background'.bg256(27)());
+      writer('RGB color foreground'.fgRgb(255, 100, 0)());
+      writer('RGB color background'.bgRgb(255, 100, 0)());
     });
 
     test('Combined Styles', () {
-      print('\n--- Combined Styles ---');
-      print('Bold Italic Underlined Red Text'.bold.italic.underline.red());
-      print('Yellow Text Bold'.yellow.bold());
-      print('Rainbow Text Example'.rainbow());
+      writer('\n--- Combined Styles ---');
+      writer('Bold Italic Underlined Red Text'.bold.italic.underline.red());
+      writer('Yellow Text Bold'.yellow.bold());
+      writer('Rainbow Text Example'.rainbow().toString());
     });
   });
 }
