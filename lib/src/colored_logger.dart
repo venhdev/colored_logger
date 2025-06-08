@@ -7,33 +7,6 @@ void _defaultConsoleWriter(String text) => print(text);
 
 void showAnsiInfo() => print(ansiInfo());
 
-/// A public method to generate a String that applies ANSI escape codes to colorize the given text.
-///
-/// This method leverages `StyledString` and `Ansi` for advanced text styling.
-///
-/// - [input] The text to colorize.
-/// - [ansi] The ANSI code to apply to the text.
-/// - [prefix] An optional prefix to add before the text.
-/// - [colored] If `false`, the text will not be colored.
-///
-/// Example:
-/// ```dart
-/// String coloredString = colorize('Hello, World!', Ansi.red.bold);
-/// print(coloredString);
-/// ```
-String colorize(
-  dynamic input,
-  Ansi ansi, {
-  String prefix = '',
-  bool colored = true,
-}) {
-  final String str_ = '$prefix${stringify(input)}';
-  if (!colored || !isSupportAnsi) return str_;
-
-  final StyledString styledText = StyledString(str_, [ansi]);
-  return styledText.colorize(colored);
-}
-
 /// A simple yet powerful colored logging utility for Dart and Flutter applications.
 ///
 /// This class provides static methods for logging messages with different colors
@@ -79,26 +52,6 @@ class ColoredLogger {
   static void error(String message, {String prefix = '[ERROR] '}) {
     colorize(message, styles: [Ansi.red], prefix: prefix);
   }
-
-  /// This method allows for complete customization of the log message appearance.
-  ///
-  /// You can specify either a color name or provide specific ANSI codes. If both [colorName] and [ansiCodes] are provided, [ansiCodes] will take precedence.
-  ///
-  /// - [input] The message to log
-  /// - [prefix], [suffix] For customizing the prefix and suffix of the message (default: '')
-  /// - [colorName] The name of the color to use (e.g., 'red', 'green', 'blue')
-  /// - [ansiCodes] List of ANSI codes to apply (takes precedence over colorName if provided)
-  /// - [chunkSize] The size of each chunk for long messages (default: null), must be greater than 0
-  ///  - [writer] The function to write the message (default: print)
-  /// - [colored] If false, the message will not be colored (default: true)
-  ///
-  /// Example:
-  /// ```dart
-  /// ColoredLogger.custom('Styled message',
-  ///     ansiCodes: [Ansi.bold, Ansi.cyan],
-  ///     prefix: '[STYLED] ');
-  /// ```
-  ///
 
   /// A public method to generate a String that applies ANSI escape codes to colorize the given text.
   ///
