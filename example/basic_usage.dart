@@ -12,7 +12,7 @@ void main() {
 
   // Custom styling with Ansi class
   print('\n=== Custom Styling Examples ===');
-  
+
   // Using ColoredLogger.colorize
   ColoredLogger.colorize(
     'Custom message with bold and cyan text',
@@ -23,16 +23,16 @@ void main() {
   // Using extension methods
   print('Hello'.red());
   print('World'.blue.bold());
-  
+
   // Chaining styles
   print('Chained styles'.bold.italic.green());
-  
+
   // Using 256-color support
   print('256-color text'.fg256(201)());
-  
+
   // Using RGB color support
   print('RGB color text'.fgRgb(255, 100, 0)());
-  
+
   // Rainbow effect
   print('Rainbow text'.rainbow());
 }

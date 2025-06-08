@@ -8,7 +8,7 @@ class Ansi {
   /// Stores the ANSI escape codes that enable a specific style or color.
   /// These codes are joined with semicolons and prefixed with `\x1B[` to form the 'on' sequence. (e.g., ['1', '32', '48;2;0;0;0'])
   final List<String> _codes;
-  
+
   /// Stores the ANSI escape codes that disable or reset a specific style or color.
   /// These codes are joined with semicolons and prefixed with `\x1B[` to form the 'off' sequence. (e.g., ['22', '39'])
   final List<String> _resetCodes;

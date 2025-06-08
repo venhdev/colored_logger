@@ -26,14 +26,18 @@ void main() {
     test('Extended colors', () {
       expect(Ansi.fg256(100).paint('test').contains('\x1B[38;5;100m'), isTrue);
       expect(Ansi.bg256(100).paint('test').contains('\x1B[48;5;100m'), isTrue);
-      expect(Ansi.fgRgb(10, 20, 30).paint('test').contains('\x1B[38;2;10;20;30m'), isTrue);
-      expect(Ansi.bgRgb(10, 20, 30).paint('test').contains('\x1B[48;2;10;20;30m'), isTrue);
+      expect(
+          Ansi.fgRgb(10, 20, 30).paint('test').contains('\x1B[38;2;10;20;30m'),
+          isTrue);
+      expect(
+          Ansi.bgRgb(10, 20, 30).paint('test').contains('\x1B[48;2;10;20;30m'),
+          isTrue);
     });
 
     test('Combining styles', () {
       final combined = Ansi.bold.combine(Ansi.red);
       expect(combined.paint('test').contains('\x1B[1;31m'), isTrue);
-      
+
       final withOperator = Ansi.italic + Ansi.green;
       expect(withOperator.paint('test').contains('\x1B[3;32m'), isTrue);
     });
