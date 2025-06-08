@@ -1,3 +1,8 @@
+## 2.0.1
+
+- Change ANSI code getter to use `const` declaration.
+- Replace factory methods with const constructors for better performance and immutability.
+
 ## 2.0.0
 
 - Complete documentation overhaul with clearer, more concise explanations
