@@ -4,6 +4,7 @@ import 'package:colored_logger/src/utils.dart';
 import 'ansi.dart';
 
 void _defaultConsoleWriter(String text) => print(text);
+typedef Writer = void Function(String text);
 
 void showAnsiInfo() => print(ansiInfo());
 
@@ -67,20 +68,26 @@ class ColoredLogger {
   ///   'This is a custom message with bold and cyan text.',
   ///   styles: [Ansi.bold, Ansi.cyan],
   ///   prefix: '[STYLED] ',
+  ///   printer: print, // You can provide a custom printer function here
   /// );
   /// ```
   static void colorize(
     dynamic input, {
     List<Ansi>? styles,
     String prefix = '',
+    Writer? writer,
   }) {
     final String text_ = '$prefix${stringify(input)}';
     if (styles == null || styles.isEmpty || !isSupportAnsi) {
-      _defaultConsoleWriter(text_);
+      _print(text_, writer: writer);
       return;
     }
 
     final StyledString styledText = StyledString(text_, styles);
-    _defaultConsoleWriter(styledText());
+    _print(styledText(), writer: writer);
   }
+}
+
+void _print(String text, {Writer? writer}) {
+  (writer ?? _defaultConsoleWriter)(text);
 }
