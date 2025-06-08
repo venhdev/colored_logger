@@ -140,6 +140,28 @@ extension AnsiString on String {
   // ## 6. True Color (RGB) Support
   StyledString fgRgb(int r, int g, int b) => style(Ansi.fgRgb(r, g, b));
   StyledString bgRgb(int r, int g, int b) => style(Ansi.bgRgb(r, g, b));
+
+  /// This function will paint the string with rainbow colors. If your string already have ansi code, it will be stripped first.
+  StyledString rainbow() {
+    final colors = [
+      Ansi.red,
+      Ansi.yellow,
+      Ansi.green,
+      Ansi.cyan,
+      Ansi.blue,
+      Ansi.magenta,
+    ];
+    // strip all ansi code before split prevent color mix
+    final stripped = strip(this);
+    final runes = stripped.runes.toList();
+    final styledRunes = <int>[];
+
+    for (var i = 0; i < runes.length; i++) {
+      final color = colors[i % colors.length];
+      styledRunes.addAll(color.paint(String.fromCharCode(runes[i])).runes);
+    }
+    return StyledString(String.fromCharCodes(styledRunes), []);
+  }
 }
 
 // Helper class to accumulate and apply styles
@@ -151,6 +173,23 @@ class StyledString {
 
   // Combine with another style
   StyledString _addStyle(Ansi ansi) => StyledString(_text, [..._styles, ansi]);
+
+  /// Convert to string by combining all styles
+  /// - [force] force apply ansi code even if not support ansi
+  @override
+  String toString([bool force = false]) {
+    if ((_styles.isEmpty || !isSupportAnsi) && !force) return _text;
+    final combined = _styles.reduce((a, b) => a.combine(b));
+    return combined.paint(_text);
+  }
+
+  /// Convert to string by combining all styles
+  /// - [force] force apply ansi code even if not support ansi
+  String call([bool force = true]) => toString(force);
+
+  /// Convert to string by combining all styles
+  /// - [force] force apply ansi code even if not support ansi
+  String colorize([bool force = true]) => toString(force);
 
   // Text Formatting
   StyledString get bold => _addStyle(Ansi.bold);
@@ -216,12 +255,4 @@ class StyledString {
   // True Color (RGB) Support
   StyledString fgRgb(int r, int g, int b) => _addStyle(Ansi.fgRgb(r, g, b));
   StyledString bgRgb(int r, int g, int b) => _addStyle(Ansi.bgRgb(r, g, b));
-
-  // Convert to string by combining all styles
-  @override
-  String toString() {
-    if (_styles.isEmpty || !isSupportAnsi) return _text;
-    final combined = _styles.reduce((a, b) => a.combine(b));
-    return combined.paint(_text);
-  }
 }

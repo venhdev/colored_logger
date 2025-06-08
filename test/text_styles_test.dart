@@ -1,64 +1,53 @@
 import 'package:colored_logger/colored_logger.dart';
+import 'package:colored_logger/src/ansi.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('Text Styles', () {
     test('normal style', () {
-      ColoredLogger.custom('Test normal style text',
-          ansiCodes: [AnsiCode.normal], prefix: '[NORMAL] ');
+      ColoredLogger.info(colorize('[NORMAL] Test normal style text', Ansi.reset));
     });
 
     test('bold style', () {
-      ColoredLogger.custom('Test bold style text',
-          ansiCodes: [AnsiCode.bold], prefix: '[BOLD] ');
+      ColoredLogger.info(colorize('[BOLD] Test bold style text', Ansi.bold));
     });
 
     test('dim style', () {
-      ColoredLogger.custom('Test dim style text',
-          ansiCodes: [AnsiCode.dim], prefix: '[DIM] ');
+      ColoredLogger.info(colorize('[DIM] Test dim style text', Ansi.dim));
     });
 
     test('italic style', () {
-      ColoredLogger.custom('Test italic style text',
-          ansiCodes: [AnsiCode.italic], prefix: '[ITALIC] ');
+      ColoredLogger.info(colorize('[ITALIC] Test italic style text', Ansi.italic));
     });
 
     test('underline style', () {
-      ColoredLogger.custom('Test underline style text',
-          ansiCodes: [AnsiCode.underline], prefix: '[UNDERLINE] ');
+      ColoredLogger.info(colorize('[UNDERLINE] Test underline style text', Ansi.underline));
     });
 
     test('blink style', () {
-      ColoredLogger.custom('Test blink style text',
-          ansiCodes: [AnsiCode.blink], prefix: '[BLINK] ');
+      ColoredLogger.info(colorize('[BLINK] Test blink style text', Ansi.blink));
     });
 
     test('reverse style', () {
-      ColoredLogger.custom('Test reverse style text',
-          ansiCodes: [AnsiCode.reverse], prefix: '[REVERSE] ');
+      ColoredLogger.info(colorize('[REVERSE] Test reverse style text', Ansi.reverse));
     });
 
     test('hidden style', () {
-      ColoredLogger.custom('Test hidden style text',
-          ansiCodes: [AnsiCode.hidden], prefix: '[HIDDEN] ');
+      ColoredLogger.info(colorize('[HIDDEN] Test hidden style text', Ansi.hidden));
     });
 
     test('strikethrough style', () {
-      ColoredLogger.custom('Test strikethrough style text',
-          ansiCodes: [AnsiCode.strikethrough], prefix: '[STRIKETHROUGH] ');
+      ColoredLogger.info(colorize('[STRIKETHROUGH] Test strikethrough style text', Ansi.strikethrough));
     });
 
     test('combined text styles', () {
-      ColoredLogger.custom('Test bold and italic text',
-          ansiCodes: [AnsiCode.bold, AnsiCode.italic],
-          prefix: '[BOLD+ITALIC] ');
+      ColoredLogger.info(colorize('[BOLD+ITALIC] Test bold and italic text', Ansi.bold + Ansi.italic));
 
-      ColoredLogger.custom('Test bold, italic and underline text',
-          ansiCodes: [AnsiCode.bold, AnsiCode.italic, AnsiCode.underline],
-          prefix: '[BOLD+ITALIC+UNDERLINE] ');
+      ColoredLogger.info(colorize('[BOLD+ITALIC+UNDERLINE] Test bold, italic and underline text', Ansi.bold + Ansi.italic + Ansi.underline));
 
-      ColoredLogger.custom('Test bold with color',
-          ansiCodes: [AnsiCode.bold, AnsiCode.blue], prefix: '[BOLD+BLUE] ');
+      ColoredLogger.info(colorize('[BOLD+BLUE] Test bold with color', Ansi.bold + Ansi.blue));
+
+      ColoredLogger.info(colorize('[BOLD+RED+BG_GREEN] Test bold red on green', Ansi.bold + Ansi.red + Ansi.bgGreen));
     });
   });
 }

@@ -54,22 +54,40 @@ void main() {
 
 ```dart
 import 'package:colored_logger/colored_logger.dart';
+import 'package:colored_logger/src/ansi.dart';
+import 'package:colored_logger/src/extensions.dart';
 
 void main() {
-  // Custom colored message with a specific color name
-  ColoredLogger.custom('Custom message with color name',
-      colorName: 'magenta',
-      prefix: '[CUSTOM] ');
+  // Custom colored message using the new colorize method
+  ColoredLogger.colorize(
+    'This is a custom message with bold and cyan text.',
+    styles: [Ansi.bold, Ansi.cyan],
+    prefix: '[STYLED] ',
+  );
 
-  // Custom colored message with ANSI codes
-  ColoredLogger.custom('Custom message with ANSI codes',
-      ansiCodes: [AnsiCode.bold, AnsiCode.cyan],
-      prefix: '[STYLED] ');
-      
-  // Using predefined styles from AnsiColors
-  ColoredLogger.custom('Error style message', 
-      ansiCodes: AnsiColors.error,
-      prefix: '[ERROR] ');
+  // Using extension methods for styling
+  ColoredLogger.colorize(
+    'This is another custom message with red background and white text.'.bgRed.white,
+    prefix: '[HIGHLIGHT] ',
+  );
+
+  // Chaining multiple styles
+  ColoredLogger.colorize(
+    'Chained styles: bold, italic, and green.'.bold.italic.green,
+    prefix: '[CHAINED] ',
+  );
+
+  // Using 256-color support
+  ColoredLogger.colorize(
+    '256-color text (index 201)'.fg256(201),
+    prefix: '[256-COLOR] ',
+  );
+
+  // Using true color (RGB) support
+  ColoredLogger.colorize(
+    'RGB color text (255, 100, 0)'.fgRgb(255, 100, 0),
+    prefix: '[RGB-COLOR] ',
+  );
 }
 ```
 
@@ -86,149 +104,42 @@ The `ColoredLogger` class provides static methods for logging messages with diff
 - `ColoredLogger.warning(String message, {String prefix = '[WARNING] '})` - Logs a warning message in yellow
 - `ColoredLogger.error(String message, {String prefix = '[ERROR] '})` - Logs an error message in red
 
-#### Custom Logging
+#### New `colorize` Method
 
 ```dart
-ColoredLogger.custom(
-  String message, {
-  String prefix = '',
-  String colorName = 'normal',
-  List<String>? ansiCodes,
-})
+ColoredLogger.colorize(
+  dynamic message,
+  {List<Ansi>? styles, String prefix = ''}
+)
 ```
 
 Parameters:
 
-- `message`: The message to log
-- `prefix`: Optional prefix to add before the message (default: empty string)
-- `colorName`: Color name to use (e.g., 'red', 'green', 'blue')
-- `ansiCodes`: List of ANSI codes to apply (takes precedence over colorName if provided)
-- `colored`: If false, the message will not be colored (default: true)
+- `message`: The message to log. Can be a `String` or `StyledString`.
+- `styles`: Optional list of `Ansi` styles to apply.
+- `prefix`: Optional prefix to add before the message (default: empty string).
 
-### AnsiCode Class
+This method provides a more flexible and type-safe way to apply ANSI styles using the `Ansi` class and `StyledString` extensions. You can chain styles directly on strings for expressive formatting.
 
-**Deprecated**: The `AnsiCode` class is deprecated and will be removed in a future release (v2.0.0). Use the `Ansi` class instead.
+### Ansi Class
 
-The `AnsiCode` class provides ANSI escape codes for terminal text styling.
+The `Ansi` class provides a comprehensive set of ANSI escape codes for terminal text styling, including text formatting, foreground and background colors, 256-color support, and true color (RGB) support.
 
-#### Text Styles
+For a full list of available styles and methods, refer to the `lib/src/ansi.dart` file.
 
-- `AnsiCode.normal` - Reset to normal style
-- `AnsiCode.bold` - Bold text
-- `AnsiCode.dim` - Dimmed text
-- `AnsiCode.italic` - Italic text
-- `AnsiCode.underline` - Underlined text
-- `AnsiCode.blink` - Blinking text (not supported in all terminals)
-- `AnsiCode.reverse` - Reverse/invert foreground and background colors
-- `AnsiCode.hidden` - Hidden/invisible text
-- `AnsiCode.strikethrough` - Strikethrough text
+### String Extension Methods
 
-#### Foreground Colors
+Located in `lib/src/extensions.dart`, these extension methods provide a convenient way to apply `Ansi` styles directly to `String` objects, returning `StyledString` instances. This allows for method chaining to combine multiple styles.
 
-- `AnsiCode.black` - Black text
-- `AnsiCode.red` - Red text
-- `AnsiCode.green` - Green text
-- `AnsiCode.yellow` - Yellow text
-- `AnsiCode.blue` - Blue text
-- `AnsiCode.magenta` - Magenta text
-- `AnsiCode.cyan` - Cyan text
-- `AnsiCode.white` - White text
+Example:
 
-#### Bright Foreground Colors
+```dart
+'Your text here'.bold.red.bgBlue.underline;
+```
 
-- `AnsiCode.brightRed` - Bright red text
-- `AnsiCode.brightGreen` - Bright green text
-- `AnsiCode.brightYellow` - Bright yellow text
-- `AnsiCode.brightBlue` - Bright blue text
-- `AnsiCode.brightMagenta` - Bright magenta text
-- `AnsiCode.brightCyan` - Bright cyan text
-- `AnsiCode.brightWhite` - Bright white text
+### StyledString Class
 
-#### Background Colors
-
-- `AnsiCode.bgBlack` - Black background
-- `AnsiCode.bgRed` - Red background
-- `AnsiCode.bgGreen` - Green background
-- `AnsiCode.bgYellow` - Yellow background
-- `AnsiCode.bgBlue` - Blue background
-- `AnsiCode.bgMagenta` - Magenta background
-- `AnsiCode.bgCyan` - Cyan background
-- `AnsiCode.bgWhite` - White background
-
-#### Advanced Color Methods
-
-- `AnsiCode.fg256(int color)` - Returns a foreground color using 8-bit color (256 colors)
-- `AnsiCode.bg256(int color)` - Returns a background color using 8-bit color (256 colors)
-- `AnsiCode.fgRGB(int r, int g, int b)` - Returns a foreground color using RGB values
-- `AnsiCode.bgRGB(int r, int g, int b)` - Returns a background color using RGB values
-
-### AnsiColors Class
-
-**Deprecated**: The `AnsiColors` class is deprecated and will be removed in a future release (v2.0.0). Use the `Ansi` class instead.
-
-The `AnsiColors` class provides enhanced styling options and predefined color combinations for terminal output.
-
-#### Text Decorations
-
-- `AnsiColors.blink` - Blink text (not supported in all terminals)
-- `AnsiColors.rapidBlink` - Rapid blink text (not widely supported)
-- `AnsiColors.reverse` - Reverse/invert foreground and background colors
-- `AnsiColors.hidden` - Hidden text (not widely supported)
-- `AnsiColors.strikethrough` - Strikethrough text
-- `AnsiColors.doubleUnderline` - Double underline (not widely supported)
-- `AnsiColors.framed` - Framed text (not widely supported)
-- `AnsiColors.encircled` - Encircled text (not widely supported)
-- `AnsiColors.overlined` - Overlined text (not widely supported)
-
-#### Advanced Color Methods
-
-- `AnsiColors.fg256(int color)` - Returns a foreground color using 8-bit color (256 colors)
-- `AnsiColors.bg256(int color)` - Returns a background color using 8-bit color (256 colors)
-- `AnsiColors.fgRGB(int r, int g, int b)` - Returns a foreground color using RGB values
-- `AnsiColors.bgRGB(int r, int g, int b)` - Returns a background color using RGB values
-
-#### Predefined Styles
-
-- `AnsiColors.error` - Bold red text (for error messages)
-- `AnsiColors.success` - Bold green text (for success messages)
-- `AnsiColors.warning` - Bold yellow text (for warning messages)
-- `AnsiColors.info` - Bold blue text (for info messages)
-- `AnsiColors.debug` - Cyan text (for debug messages)
-- `AnsiColors.highlight` - Black text on yellow background
-- `AnsiColors.alert` - White text on red background
-- `AnsiColors.notice` - Black text on cyan background
-- `AnsiColors.primary` - Bold bright blue text
-- `AnsiColors.secondary` - Bright magenta text
-- `AnsiColors.tertiary` - Bright cyan text
-- `AnsiColors.muted` - Dim white text
-- `AnsiColors.emphasis` - Bold italic text
-- `AnsiColors.link` - Underlined cyan text
-- `AnsiColors.code` - Bright white text on bright black background
-- `AnsiColors.quote` - Italic green text
-- `AnsiColors.header` - Bold underlined bright white text
-- `AnsiColors.subheader` - Underlined bright white text
-
-#### Named Colors
-
-- `AnsiColors.coral` - Coral color (RGB: 255, 127, 80)
-- `AnsiColors.tomato` - Tomato color (RGB: 255, 99, 71)
-- `AnsiColors.orangeRed` - Orange red color (RGB: 255, 69, 0)
-- `AnsiColors.gold` - Gold color (RGB: 255, 215, 0)
-- `AnsiColors.limeGreen` - Lime green color (RGB: 50, 205, 50)
-- `AnsiColors.forestGreen` - Forest green color (RGB: 34, 139, 34)
-- `AnsiColors.teal` - Teal color (RGB: 0, 128, 128)
-- `AnsiColors.deepSkyBlue` - Deep sky blue color (RGB: 0, 191, 255)
-- `AnsiColors.royalBlue` - Royal blue color (RGB: 65, 105, 225)
-- `AnsiColors.navyBlue` - Navy blue color (RGB: 0, 0, 128)
-- `AnsiColors.purple` - Purple color (RGB: 128, 0, 128)
-- `AnsiColors.violet` - Violet color (RGB: 238, 130, 238)
-- `AnsiColors.hotPink` - Hot pink color (RGB: 255, 105, 180)
-- `AnsiColors.deepPink` - Deep pink color (RGB: 255, 20, 147)
-- `AnsiColors.chocolate` - Chocolate color (RGB: 210, 105, 30)
-- `AnsiColors.sienna` - Sienna color (RGB: 160, 82, 45)
-- `AnsiColors.silver` - Silver color (RGB: 192, 192, 192)
-- `AnsiColors.gray` - Gray color (RGB: 128, 128, 128)
-- `AnsiColors.slateGray` - Slate gray color (RGB: 112, 128, 144)
+The `StyledString` class (from `lib/src/extensions.dart`) represents a string with associated `Ansi` styles. It allows for the accumulation and application of multiple styles, and its `toString()` method renders the final ANSI-formatted string.
 
 ### Utility Functions
 
@@ -294,7 +205,7 @@ String prefixedText = colorize(
 print(prefixedText);
 ```
 
-**Deprecated**: The `colorizeText` function is deprecated and will be removed in a future release (v2.0.0). Use `colorize` instead.
+
 
 ## Example
 

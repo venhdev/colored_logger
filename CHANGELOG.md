@@ -1,11 +1,15 @@
+## 1.2.8
+
+- Enhanced Ansi Class with Fluent Chaining
+
 ## 1.2.7
 
 - Introduce new styling mechanism using `Ansi` and `StyledString` for enhanced text customization.
+- Remove `AnsiCode` and `AnsiColors` classes and their corresponding files.
 
 ## 1.2.6
 
 - Deprecate `colorizeText` function in favor of new `colorize` method.
-- Deprecate `AnsiCode` and `AnsiColors` classes in favor of `Ansi` class.
 - Add new `colorize` method for advanced text styling using `StyledString` and `Ansi`.
 
 ## 1.2.5

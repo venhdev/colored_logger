@@ -1,4 +1,5 @@
 import 'package:colored_logger/colored_logger.dart';
+import 'package:colored_logger/src/ansi.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -20,76 +21,13 @@ void main() {
     });
 
     test('multi lines', () {
-      ColoredLogger.custom('Line 1\nLine 2\nLine 3',
-          prefix: '[DEBUG] ', colorName: 'green');
-    });
-  });
-
-  group('Custom Logging with Color Names', () {
-    test('normal color name', () {
-      ColoredLogger.custom('Test normal message',
-          colorName: 'normal', prefix: '[NORMAL] ');
-    });
-
-    test('custom color names', () {
-      ColoredLogger.custom('Test blue message',
-          colorName: 'blue', prefix: '[BLUE] ');
-      ColoredLogger.custom('Test red message',
-          colorName: 'red', prefix: '[RED] ');
-      ColoredLogger.custom('Test green message',
-          colorName: 'green', prefix: '[GREEN] ');
-      ColoredLogger.custom('Test yellow message',
-          colorName: 'yellow', prefix: '[YELLOW] ');
-    });
-  });
-
-  group('Custom Logging with ANSI Codes', () {
-    test('single ANSI code', () {
-      ColoredLogger.custom('Test bold text',
-          ansiCodes: [AnsiCode.bold], prefix: '[BOLD] ');
-      ColoredLogger.custom('Test dim text',
-          ansiCodes: [AnsiCode.dim], prefix: '[DIM] ');
-      ColoredLogger.custom('Test underline text',
-          ansiCodes: [AnsiCode.underline], prefix: '[UNDERLINE] ');
-    });
-
-    test('background colors', () {
-      ColoredLogger.custom('Test bg red',
-          ansiCodes: [AnsiCode.bgRed], prefix: '[BG_RED] ');
-      ColoredLogger.custom('Test bg blue',
-          ansiCodes: [AnsiCode.bgBlue], prefix: '[BG_BLUE] ');
-      ColoredLogger.custom('Test bg green',
-          ansiCodes: [AnsiCode.bgGreen], prefix: '[BG_GREEN] ');
-    });
-
-    test('combined ANSI codes', () {
-      ColoredLogger.custom(
-        'Test combined styles',
-        ansiCodes: [
-          AnsiCode.bold,
-          AnsiCode.underline,
-          AnsiCode.red,
-          AnsiCode.bgYellow,
-        ],
-        prefix: '[COMBINED] ',
-      );
-
-      ColoredLogger.custom(
-        'Test bright colors',
-        ansiCodes: [
-          AnsiCode.brightBlue,
-          AnsiCode.bgBrightGreen,
-        ],
-        prefix: '[BRIGHT] ',
-      );
+      ColoredLogger.info(colorize('[DEBUG] Line 1\nLine 2\nLine 3', Ansi.green));
     });
 
     test('colored = false', () {
       final List<String> capturedOutput = [];
-      ColoredLogger.custom(
+      ColoredLogger.info(
         'This should not be colored',
-        colored: false,
-        colorName: 'green',
         writer: (msg) {
           capturedOutput.add(msg);
           print(msg); // Print to the standard output for manual verification
@@ -105,8 +43,7 @@ void main() {
   group('Print Long String', () {
     test('A * 10,000', () {
       final String longString = 'A' * 10000; // 10,000 'A's
-      ColoredLogger.custom('$longString--Print Long String--END',
-          colorName: 'green', writer: print);
+      ColoredLogger.info(colorize('$longString--Print Long String--END', Ansi.green), writer: print);
     });
   });
 
@@ -120,62 +57,70 @@ void main() {
       ColoredLogger.error('An error occurred');
 
       // Custom colored message with a specific color name
-      ColoredLogger.custom('Custom message with color name',
-          colorName: 'magenta', prefix: '[CUSTOM] ');
+      ColoredLogger.info(colorize('[CUSTOM] Custom message with color name', Ansi.magenta));
 
       // Custom colored message with ANSI codes
-      ColoredLogger.custom('Custom message with ANSI codes',
-          ansiCodes: [AnsiCode.cyan, AnsiCode.bold], prefix: '[STYLED] ');
+      ColoredLogger.info(colorize('[STYLED] Custom message with ANSI codes', Ansi.bold + Ansi.cyan));
+
+      // Using quick combine Ansi styles
+      ColoredLogger.info(colorize('Bold Red Background Green', Ansi.bold + Ansi.red + Ansi.bgGreen));
+      ColoredLogger.info(colorize('Underlined Yellow on Blue', Ansi.underline + Ansi.yellow + Ansi.bgBlue));
 
       // Using different text styles
-      ColoredLogger.custom('Bold text', ansiCodes: [AnsiCode.bold]);
-      ColoredLogger.custom('Italic text', ansiCodes: [AnsiCode.italic]);
-      ColoredLogger.custom('Underlined text', ansiCodes: [AnsiCode.underline]);
-      ColoredLogger.custom('Strikethrough text',
-          ansiCodes: [AnsiCode.strikethrough]);
-      ColoredLogger.custom('Blinking text', ansiCodes: [AnsiCode.blink]);
-      ColoredLogger.custom('Reversed colors', ansiCodes: [AnsiCode.reverse]);
+      ColoredLogger.info(colorize('Bold text', Ansi.bold));
+      ColoredLogger.info(colorize('Italic text', Ansi.italic));
+      ColoredLogger.info(colorize('Underlined text', Ansi.underline));
+      ColoredLogger.info(colorize('Strikethrough text', Ansi.strikethrough));
+      ColoredLogger.info(colorize('Blinking text', Ansi.blink));
+      ColoredLogger.info(colorize('Reversed colors', Ansi.reverse));
 
       // Using background colors
-      ColoredLogger.custom('Text with background',
-          ansiCodes: [AnsiCode.black, AnsiCode.bgYellow]);
+      ColoredLogger.info(colorize('Text with background', Ansi.black + Ansi.bgYellow));
 
       // Using 256 colors (8-bit)
-      ColoredLogger.custom('256 color foreground',
-          ansiCodes: [AnsiCode.fg256(39)]);
-      ColoredLogger.custom('256 color background',
-          ansiCodes: [AnsiCode.white, AnsiCode.bg256(39)]);
+      ColoredLogger.info(colorize('256 color foreground', Ansi.fg256(39)));
+      ColoredLogger.info(colorize('256 color background', Ansi.white + Ansi.bg256(39)));
 
       // Using RGB true colors
-      ColoredLogger.custom('RGB color foreground',
-          ansiCodes: [AnsiCode.fgRGB(255, 100, 50)]);
-      ColoredLogger.custom('RGB color background',
-          ansiCodes: [AnsiCode.black, AnsiCode.bgRGB(255, 100, 50)]);
+      ColoredLogger.info(colorize('RGB color foreground', Ansi.fgRGB(255, 100, 50)));
+      ColoredLogger.info(colorize('RGB color background', Ansi.black + Ansi.bgRGB(255, 100, 50)));
 
-      // Using AnsiColors predefined styles
-      ColoredLogger.custom('Error style', ansiCodes: AnsiColors.error);
-      ColoredLogger.custom('Success style', ansiCodes: AnsiColors.success);
-      ColoredLogger.custom('Warning style', ansiCodes: AnsiColors.warning);
-      ColoredLogger.custom('Info style', ansiCodes: AnsiColors.info);
-      ColoredLogger.custom('Debug style', ansiCodes: AnsiColors.debug);
+      // Using Ansi predefined styles
+      ColoredLogger.info(colorize('Error style', Ansi.red));
+      ColoredLogger.info(colorize('Success style', Ansi.green));
+      ColoredLogger.info(colorize('Warning style', Ansi.yellow));
+      ColoredLogger.info(colorize('Info style', Ansi.blue));
+      ColoredLogger.info(colorize('Debug style', Ansi.gray));
 
-      // Using AnsiColors semantic styles
-      ColoredLogger.custom('Primary style', ansiCodes: AnsiColors.primary);
-      ColoredLogger.custom('Secondary style', ansiCodes: AnsiColors.secondary);
-      ColoredLogger.custom('Highlight style', ansiCodes: AnsiColors.highlight);
-      ColoredLogger.custom('Alert style', ansiCodes: AnsiColors.alert);
-      ColoredLogger.custom('Link style', ansiCodes: AnsiColors.link);
-      ColoredLogger.custom('Code style', ansiCodes: AnsiColors.code);
-      ColoredLogger.custom('Header style', ansiCodes: AnsiColors.header);
+      // Using Ansi semantic styles
+      ColoredLogger.info(colorize('Primary style', Ansi.blue));
+      ColoredLogger.info(colorize('Secondary style', Ansi.gray));
+      ColoredLogger.info(colorize('Highlight style', Ansi.yellow));
+      ColoredLogger.info(colorize('Alert style', Ansi.red));
+      ColoredLogger.info(colorize('Link style', Ansi.cyan));
+      ColoredLogger.info(colorize('Code style', Ansi.magenta));
+      ColoredLogger.info(colorize('Header style', Ansi.bold));
 
-      // Using AnsiColors named colors
-      ColoredLogger.custom('Coral color', ansiCodes: [AnsiColors.coral]);
-      ColoredLogger.custom('Gold color', ansiCodes: [AnsiColors.gold]);
-      ColoredLogger.custom('Teal color', ansiCodes: [AnsiColors.teal]);
-      ColoredLogger.custom('Deep sky blue color',
-          ansiCodes: [AnsiColors.deepSkyBlue]);
-      ColoredLogger.custom('Hot pink color', ansiCodes: [AnsiColors.hotPink]);
-      ColoredLogger.custom('Purple color', ansiCodes: [AnsiColors.purple]);
+      // Using Ansi named colors
+      ColoredLogger.info(colorize('Coral color', Ansi.coral));
+      ColoredLogger.info(colorize('Gold color', Ansi.gold));
+      ColoredLogger.info(colorize('Teal color', Ansi.teal));
+      ColoredLogger.info(colorize('Deep sky blue color', Ansi.deepSkyBlue));
+      ColoredLogger.info(colorize('Hot pink color', Ansi.hotPink));
+      ColoredLogger.info(colorize('Purple color', Ansi.purple));
+
+      // Test Ansi style combination and paint method
+      expect(Ansi.s().bold.red.bgGreen.paint('text'), equals('\x1B[1;31;42mtext\x1B[22;39;49m'));
+
+      // Test rainbow style
+      final rainbowText = 'Rainbow'.rainbow().paint();
+      expect(rainbowText, contains('\x1B[31mR\x1B[39m'));
+      expect(rainbowText, contains('\x1B[33ma\x1B[39m'));
+      expect(rainbowText, contains('\x1B[32mi\x1B[39m'));
+      expect(rainbowText, contains('\x1B[36mn\x1B[39m'));
+      expect(rainbowText, contains('\x1B[34mb\x1B[39m'));
+      expect(rainbowText, contains('\x1B[35mo\x1B[39m'));
+      expect(rainbowText, contains('\x1B[31mw\x1B[39m'));
     });
   });
 }
