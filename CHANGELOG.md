@@ -1,3 +1,11 @@
+## 2.0.0
+
+- Complete documentation overhaul with clearer, more concise explanations
+- New examples demonstrating basic and advanced usage
+- Improved test coverage
+- Streamlined API documentation
+- Removed outdated documentation mechanisms
+
 ## 1.2.8
 
 - Enhanced Ansi Class with Fluent Chaining
@@ -49,16 +57,16 @@ Enhance colored logger with advanced styling and RGB support
 
 ## 0.0.4
 
-- Multiple lines support
+- Fix color codes
 
 ## 0.0.3
 
-- using debugPrint instead of print
+- Add more colors
 
 ## 0.0.2
 
-- Add more docs, functions and examples
+- Add more colors
 
 ## 0.0.1
 
-- Initial release
+- Initial version

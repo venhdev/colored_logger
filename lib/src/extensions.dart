@@ -185,7 +185,7 @@ class StyledString {
 
   /// Convert to string by combining all styles
   /// - [force] force apply ansi code even if not support ansi
-  String call([bool force = true]) => toString(force);
+  String call([bool force = false]) => toString(force);
 
   /// Convert to string by combining all styles
   /// - [force] force apply ansi code even if not support ansi

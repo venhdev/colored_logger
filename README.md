@@ -8,149 +8,125 @@ A simple yet powerful colored logging utility for Dart and Flutter applications 
 
 ## Features
 
-- **Color-coded log levels**: Easily distinguish between different types of logs (info, success, warning, error)
-- **ANSI color support**: Includes a variety of ANSI color codes for terminal output
-- **RGB & 256 color support**: Create millions of colors with true color RGB and 8-bit color support
-- **Predefined styles**: Ready-to-use semantic styles, colors, text decorations
+- **Color-coded log levels**: Info (blue), success (green), warning (yellow), error (red)
+- **Rich text formatting**: Bold, italic, underline, strikethrough, and more
+- **Extensive color support**: Basic colors, bright colors, 256-color palette, and true RGB colors
+- **Fluent API**: Chain multiple styles together with a clean, readable syntax
+- **String extensions**: Apply styles directly to strings with extension methods
 
 ## Installation
 
-Add the package to your `pubspec.yaml` file:
-
 ```yaml
 dependencies:
-  colored_logger: ^1.2.3
+  colored_logger: ^2.0.0
 ```
 
-Then run:
-
-```bash
-flutter pub get
-```
-
-Or with Dart:
-
-```bash
-dart pub get
-```
-
-## Usage
-
-### Basic Usage
+## Basic Usage
 
 ```dart
 import 'package:colored_logger/colored_logger.dart';
 
 void main() {
-  // Basic usage with predefined log levels
-  ColoredLogger.info('This is an info message');
+  // Basic log levels
+  ColoredLogger.info('Server started on port 8080');
   ColoredLogger.success('Operation completed successfully');
   ColoredLogger.warning('This is a warning message');
   ColoredLogger.error('An error occurred');
-}
-```
-
-### Custom Logging
-
-```dart
-import 'package:colored_logger/colored_logger.dart';
-import 'package:colored_logger/src/ansi.dart';
-import 'package:colored_logger/src/extensions.dart';
-
-void main() {
-  // Custom colored message using the new colorize method
+  
+  // Custom styling
   ColoredLogger.colorize(
-    'This is a custom message with bold and cyan text.',
+    'Custom message with bold and cyan text',
     styles: [Ansi.bold, Ansi.cyan],
     prefix: '[STYLED] ',
   );
-
-  // Using extension methods for styling
-  ColoredLogger.colorize(
-    'This is another custom message with red background and white text.'.bgRed.white,
-    prefix: '[HIGHLIGHT] ',
-  );
-
-  // Chaining multiple styles
-  ColoredLogger.colorize(
-    'Chained styles: bold, italic, and green.'.bold.italic.green,
-    prefix: '[CHAINED] ',
-  );
-
-  // Using 256-color support
-  ColoredLogger.colorize(
-    '256-color text (index 201)'.fg256(201),
-    prefix: '[256-COLOR] ',
-  );
-
-  // Using true color (RGB) support
-  ColoredLogger.colorize(
-    'RGB color text (255, 100, 0)'.fgRgb(255, 100, 0),
-    prefix: '[RGB-COLOR] ',
-  );
 }
 ```
 
-## API Documentation
-
-### ColoredLogger Class
-
-The `ColoredLogger` class provides static methods for logging messages with different colors and styles.
-
-#### Basic Logging Methods
-
-- `ColoredLogger.info(String message, {String prefix = '[INFO] '})` - Logs an info message in blue
-- `ColoredLogger.success(String message, {String prefix = '[SUCCESS] '})` - Logs a success message in green
-- `ColoredLogger.warning(String message, {String prefix = '[WARNING] '})` - Logs a warning message in yellow
-- `ColoredLogger.error(String message, {String prefix = '[ERROR] '})` - Logs an error message in red
-
-#### New `colorize` Method
+## String Extensions
 
 ```dart
-ColoredLogger.colorize(
-  dynamic message,
-  {List<Ansi>? styles, String prefix = ''}
-)
+import 'package:colored_logger/colored_logger.dart';
+
+void main() {
+  // Apply styles directly to strings
+  print('Bold text'.bold());
+  print('Red text'.red());
+  
+  // Chain multiple styles
+  print('Bold italic green text'.bold.italic.green());
+  
+  // Advanced colors
+  print('256-color text'.fg256(201)());
+  print('RGB color text'.fgRgb(255, 100, 0)());
+  
+  // Special effects
+  print('Rainbow text'.rainbow());
+}
 ```
 
-Parameters:
-
-- `message`: The message to log. Can be a `String` or `StyledString`.
-- `styles`: Optional list of `Ansi` styles to apply.
-- `prefix`: Optional prefix to add before the message (default: empty string).
-
-This method provides a more flexible and type-safe way to apply ANSI styles using the `Ansi` class and `StyledString` extensions. You can chain styles directly on strings for expressive formatting.
-
-### Ansi Class
-
-The `Ansi` class provides a comprehensive set of ANSI escape codes for terminal text styling, including text formatting, foreground and background colors, 256-color support, and true color (RGB) support.
-
-For a full list of available styles and methods, refer to the `lib/src/ansi.dart` file.
-
-### String Extension Methods
-
-Located in `lib/src/extensions.dart`, these extension methods provide a convenient way to apply `Ansi` styles directly to `String` objects, returning `StyledString` instances. This allows for method chaining to combine multiple styles.
-
-Example:
+## Ansi Class
 
 ```dart
-'Your text here'.bold.red.bgBlue.underline;
+import 'package:colored_logger/colored_logger.dart';
+
+void main() {
+  // Static methods
+  print(Ansi.bold.paint('Bold text'));
+  print(Ansi.red.paint('Red text'));
+  
+  // Combine styles
+  final boldRed = Ansi.bold.combine(Ansi.red);
+  print(boldRed.paint('Bold red text'));
+  
+  // Using + operator
+  final boldItalicGreen = Ansi.bold + Ansi.italic + Ansi.green;
+  print(boldItalicGreen.paint('Bold italic green text'));
+  
+  // Fluent chaining API
+  final customStyle = Ansi.empty.cBold.cItalic.cRed.cBgYellow;
+  print(customStyle.paint('Custom styled text'));
+}
 ```
 
-### StyledString Class
+## Available Styles
 
-The `StyledString` class (from `lib/src/extensions.dart`) represents a string with associated `Ansi` styles. It allows for the accumulation and application of multiple styles, and its `toString()` method renders the final ANSI-formatted string.
+### Text Formatting
+- `bold`, `faint`, `italic`, `underline`, `doubleUnderline`
+- `strikethrough`, `overline`, `inverse`, `conceal`
+- `slowBlink`, `fastBlink`, `superscript`, `subscript`
+- `framed`, `encircled`
 
-## Example
+### Colors
+- Standard: `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`
+- Bright: `brightBlack`, `brightRed`, `brightGreen`, `brightYellow`, `brightBlue`, `brightMagenta`, `brightCyan`, `brightWhite`
+- Background: `bgBlack`, `bgRed`, `bgGreen`, `bgYellow`, `bgBlue`, `bgMagenta`, `bgCyan`, `bgWhite`
+- Bright Background: `bgBrightBlack`, `bgBrightRed`, `bgBrightGreen`, `bgBrightYellow`, `bgBrightBlue`, `bgBrightMagenta`, `bgBrightCyan`, `bgBrightWhite`
 
-See the [example](example/example.dart) for a complete working example.
+### Extended Colors
+- 256-color: `fg256(index)`, `bg256(index)`
+- RGB: `fgRgb(r, g, b)`, `bgRgb(r, g, b)`
 
-## Additional Information
+## ANSI Support
 
-- **Repository**: [GitHub](https://github.com/venhdev/colored_logger)
-- **Homepage**: [venhdev.me](https://www.venhdev.me)
-- **Issues**: Please file issues on the [GitHub repository](https://github.com/venhdev/colored_logger/issues)
-- **Contributions**: Contributions are welcome! Feel free to submit a pull request
+Check ANSI support in your terminal:
+
+```dart
+import 'package:colored_logger/colored_logger.dart';
+
+void main() {
+  showAnsiInfo();
+}
+```
+
+Force ANSI support with environment variables:
+
+```bash
+# Dart
+dart run --define=ANSI=true main.dart
+
+# Flutter
+flutter run --dart-define=ANSI=true
+```
 
 ## License
 
