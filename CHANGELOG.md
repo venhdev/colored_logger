@@ -1,4 +1,4 @@
-## 2.0.2
+## 2.0.3
 
 - Change ANSI code getter to use `const` declaration.
 - Replace factory methods with const constructors for better performance and immutability.

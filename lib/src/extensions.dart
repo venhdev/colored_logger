@@ -74,7 +74,8 @@ StyledString bgBrightWhite(String text) =>
 
 extension AnsiString on String {
   // Helper method to start styling
-  StyledString style(Ansi ansi) => StyledString(this, [ansi]);
+  StyledString style(Ansi? ansi) =>
+      ansi == null ? emptyStyle() : StyledString(this, [ansi]);
   StyledString styleList(List<Ansi> ansiList) => StyledString(this, ansiList);
   StyledString emptyStyle() => StyledString(this, []);
 
