@@ -73,6 +73,8 @@ StyledString bgBrightWhite(String text) =>
     StyledString(text, [Ansi.bgBrightWhite]);
 
 extension AnsiString on String {
+  String paint(Ansi? ansi) =>
+      ansi == null ? this : StyledString(this, [ansi]).toString();
   // Helper method to start styling
   StyledString style(Ansi? ansi) =>
       ansi == null ? emptyStyle() : StyledString(this, [ansi]);

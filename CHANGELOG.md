@@ -1,8 +1,8 @@
-## 2.0.3
+## 2.0.4
 
 - Change ANSI code getter to use `const` declaration.
 - Replace factory methods with const constructors for better performance and immutability.
-- Add styleList method to String extension
+- Expand String extension to support more styling options.
 
 ## 2.0.0
 
