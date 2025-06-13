@@ -79,7 +79,7 @@ extension AnsiString on String {
   // Helper method to start styling
   StyledString style(Ansi? ansi) =>
       ansi == null ? _empty() : StyledString(this, [ansi]);
-  StyledString styleList(List<Ansi> ansiList) => StyledString(this, ansiList);
+  StyledString styles(List<Ansi> ansiList) => StyledString(this, ansiList);
   StyledString _empty() => StyledString(this, []);
 
   // ## 1. Text Formatting
