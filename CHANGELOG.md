@@ -1,3 +1,8 @@
+## 2.0.5
+
+- Renamed `styleList` to `styles` in `extensions.dart`.
+- Added force param when .paint() a String
+
 ## 2.0.4
 
 - Change ANSI code getter to use `const` declaration.
