@@ -1,6 +1,5 @@
-import 'package:colored_logger/src/utils.dart';
-
-import 'ansi.dart';
+import '../colored_logger.dart';
+import 'utils.dart';
 
 // Public functions for styling
 StyledString bold(String text) => StyledString(text, [Ansi.bold]);

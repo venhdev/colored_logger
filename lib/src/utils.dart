@@ -1,36 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:colored_logger/colored_logger.dart';
-
-bool get _supportsAnsiEscapes => stdout.supportsAnsiEscapes;
-bool get _supportStdout =>
-    stdioType(stdout) == StdioType.terminal ||
-    stdioType(stdout) == StdioType.pipe;
-
-/// Environment variable for ANSI support setting by user
-const bool? _ansiEnv_ =
-    bool.hasEnvironment("ANSI") ? bool.fromEnvironment("ANSI") : null;
-bool get _isTest =>
-    Platform.script.path.split('/').last.startsWith('test.dart');
-bool get isSupportAnsi => _ansiEnv_ != null
-    ? _ansiEnv_!
-    : (_supportsAnsiEscapes && _supportStdout) || _isTest;
-
-String ansiInfo() {
-  final s1 =
-      '[AnsiInfo] Connected to a terminal that supports ANSI escape sequences (Not all terminals are recognized): $_supportsAnsiEscapes';
-  final suffixS2 = '\n\t ==> isSupportAnsi: $isSupportAnsi';
-  final s2 =
-      '[AnsiInfo] Supports stdout: $_supportStdout (${stdioType(stdout)}) and hasTerminal: ${stdout.hasTerminal}$suffixS2';
-  final s3 =
-      '[AnsiInfo] ANSI support is determined by the environment variable "ANSI": $_ansiEnv_ \n\t(flutter run --dart-define=ANSI=true main.dart) or \n\t(dart run --define=ANSI=true main.dart)';
-  final s4 =
-      '[AnsiInfo] The current environment is a test environment: $_isTest';
-  final s5 =
-      '[AnsiInfo] Demo: This is ${'red${'Italic'.italic}'.red()} text and this is ${'green${bold('Bold')}'.green.paint()} text. This is a ${'rainbow text'.rainbow(true).italic.slowBlink()}. Can you see it?';
-  return '$s1\n$s2\n$s3\n$s4\n$s5';
-}
 
 String stringify(dynamic input) {
   if (input == null) {

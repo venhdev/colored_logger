@@ -1,7 +1,8 @@
-## 2.0.5
+## 2.0.6
 
 - Renamed `styleList` to `styles` in `extensions.dart`.
 - Added force param when .paint() a String
+- Correct export ANSI support detection and related utility functions
 
 ## 2.0.4
 

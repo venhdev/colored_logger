@@ -18,7 +18,7 @@ A simple yet powerful colored logging utility for Dart and Flutter applications 
 
 ```yaml
 dependencies:
-  colored_logger: ^2.0.5
+  colored_logger: ^2.0.6
 ```
 
 ## Basic Usage
