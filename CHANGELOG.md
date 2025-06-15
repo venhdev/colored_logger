@@ -1,3 +1,7 @@
+## 2.1.0
+
+- Fix multi-line not support in flutter project
+
 ## 2.0.6
 
 - Renamed `styleList` to `styles` in `extensions.dart`.
