@@ -3,6 +3,7 @@ import 'utils.dart';
 const String _kResetFg = '39'; // Reset foreground color
 const String _kResetBg = '49'; // Reset background color
 const String _esc = '\x1B';
+const String _escLineBreak = '\n'; // '\r\n'
 
 class Ansi {
   /// Stores the ANSI escape codes that enable a specific style or color.
@@ -83,8 +84,14 @@ class Ansi {
         suffix: on,
       );
     }
-
-    return '$on$str$off';
+    if (str.contains(_escLineBreak)) {
+      return str
+          .split(_escLineBreak)
+          .map((String line) => '$on$line$off')
+          .join(_escLineBreak);
+    } else {
+      return '$on$str$off';
+    }
   }
 
   // STATIC METHODS (Original API preserved)
