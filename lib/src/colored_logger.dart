@@ -1,11 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:colored_logger/src/extensions.dart';
-import 'package:colored_logger/src/utils.dart';
-
 import 'ansi.dart';
+import 'extensions.dart';
 import 'types.dart';
+import 'utils.dart';
 
 void _defaultConsoleWriter(String text) => print(text);
 
